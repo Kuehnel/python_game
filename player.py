@@ -23,6 +23,10 @@ class Player:
 
     health = 100
 
+    def is_dashing (self):
+        if self.dash_state >= -15:
+            return True
+
     def handle_movement (self):
         keys_pressed = pygame.key.get_pressed()
 
@@ -57,18 +61,20 @@ class Player:
 
     def handle_collision_with_enemy (hero, enemy_array):
         for rect in enemy_array:
-            if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(rect):
-                print("hit")
+            if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(rect) and not hero.is_dashing():
                 hero.health -= 10  # todo set value enemy
 
-    def handle_collision_with_environment (hero, rect_array):
+
+    def handle_collision_with_environment (hero, rect_array, enemy_array):
         next_hero_rect = pygame.Rect(hero.x if hero.next_x == 0 else hero.next_x,
                                      hero.y if hero.next_y == 0 else hero.next_y, hero.width, hero.height)
 
         collision_x = False
         collision_y = False
 
-        for rect in rect_array:
+        collision_array = rect_array if hero.is_dashing() else rect_array + enemy_array
+
+        for rect in collision_array:
 
             if next_hero_rect.colliderect(rect):
 

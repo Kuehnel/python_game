@@ -6,7 +6,7 @@ class Level:
     tile_size = 100
 
     block_width = 100
-    block_height = 50
+    block_height = 20
 
     rect_array = []
 
@@ -16,13 +16,13 @@ class Level:
         for row in tile_map:
             for column in row:
                 if column == 1:
-                    tmp_rect = pygame.Rect(self.pointer_x, self.pointer_y, self.block_width,
-                                           self.block_height)
-                    self.rect_array.append(tmp_rect)
+                    # add block
+                    self.rect_array.append(pygame.Rect(self.pointer_x, self.pointer_y, self.block_width, self.block_height))
                 if column == 2:
-                    tmp_rect = pygame.Rect(self.pointer_x, self.pointer_y, self.block_width,
-                                           self.block_height)
-                    self.enemy_array.append(tmp_rect)
+                    # add block
+                    self.rect_array.append(pygame.Rect(self.pointer_x, self.pointer_y, self.block_width, self.block_height))
+                    # add enemy
+                    self.enemy_array.append(pygame.Rect(self.pointer_x, self.pointer_y - self.block_height, self.block_width, self.block_height))
                 self.pointer_x += self.tile_size
             self.pointer_x = 0
             self.pointer_y += self.tile_size

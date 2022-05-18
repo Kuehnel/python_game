@@ -45,7 +45,7 @@ while go:
     hero.handle_collision_with_enemy(level_1.enemy_array)
 
     # handle collision with environment
-    hero.handle_collision_with_environment(level_1.rect_array)
+    hero.handle_collision_with_environment(level_1.rect_array, level_1.enemy_array)
 
     level_1.draw(hero, screen)
     clock.tick(60)
