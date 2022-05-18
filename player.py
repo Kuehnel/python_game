@@ -27,10 +27,14 @@ class Player:
         if self.dash_state >= -15:
             return True
 
+    def is_jumping (self):
+        if self.jump_state >= -15:
+            return True
+
     def handle_movement (self):
         keys_pressed = pygame.key.get_pressed()
 
-        if keys_pressed[pygame.K_UP] and self.jump_state == -16:
+        if keys_pressed[pygame.K_UP] and not self.is_jumping() and self.grounded:
             self.jump_state = 15
         if keys_pressed[pygame.K_DOWN]:
             self.next_y = self.y + self.velocity
@@ -78,7 +82,9 @@ class Player:
 
             if next_hero_rect.colliderect(rect):
 
+                hero.grounded = False
                 next_hero_rect_only_y = pygame.Rect(hero.x, hero.next_y, hero.width, hero.height)
+
                 if hero.next_y != 0 and next_hero_rect_only_y.colliderect(rect):
                     # collision bottom
                     if hero.y < hero.next_y:
