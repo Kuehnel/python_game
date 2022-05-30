@@ -21,7 +21,7 @@ level_1 = level_1.Level_1()
 hero = player.Player()
 
 # generate level using the tile map
-level_1.generate_level(level_1.tile_map)
+level_1.generate_level(level_1.tile_map, screen_width, screen_height)
 
 # game loop
 go = True
@@ -41,11 +41,11 @@ while go:
     # handle dash
     hero.handle_dash()
 
+    # handle collision with environment
+    hero.handle_collision_with_environment(level_1.rect_array)
+
     # handle collision with enemy
     hero.handle_collision_with_enemy(level_1.enemy_array)
-
-    # handle collision with environment
-    hero.handle_collision_with_environment(level_1.rect_array, level_1.enemy_array)
 
     level_1.draw(hero, screen)
     clock.tick(60)

@@ -2,15 +2,17 @@ import pygame
 
 
 class Player:
-    x = 300
-    y = 300
+    x = 20
+    y = 830
     velocity = 5
     width = 30
     height = 50
 
     jump_state = -16
+    init_jumpstate = -16
 
     dash_state = -16
+    init_dash_state = -16
     dash_speed = 20
 
     line_of_sight = 1
@@ -24,18 +26,18 @@ class Player:
     health = 100
 
     def is_dashing (self):
-        if self.dash_state >= -15:
+        if self.dash_state > self.init_dash_state:
             return True
 
     def is_jumping (self):
-        if self.jump_state >= -15:
+        if self.jump_state > self.init_jumpstate:
             return True
 
     def handle_movement (self):
         keys_pressed = pygame.key.get_pressed()
 
         if keys_pressed[pygame.K_UP] and not self.is_jumping() and self.grounded:
-            self.jump_state = 15
+            self.jump_state = self.init_jumpstate * -1
         if keys_pressed[pygame.K_DOWN]:
             self.next_y = self.y + self.velocity
         if keys_pressed[pygame.K_RIGHT]:
@@ -44,11 +46,11 @@ class Player:
         if keys_pressed[pygame.K_LEFT]:
             self.line_of_sight = -1
             self.next_x = self.x - self.velocity
-        if keys_pressed[pygame.K_d] and self.dash_state == -16:
+        if keys_pressed[pygame.K_d] and not self.is_dashing():
             self.dash_state = 0
 
     def handle_jump (self):
-        if self.jump_state >= -15:
+        if self.jump_state > self.init_jumpstate:
             n = 1
             if self.jump_state < 0:
                 n = -1
@@ -56,7 +58,7 @@ class Player:
             self.jump_state -= 1
 
     def handle_dash (self):
-        if self.dash_state >= -15:
+        if self.dash_state > self.init_dash_state:
             if self.line_of_sight == 1:
                 self.next_x = self.x + self.dash_speed
             if self.line_of_sight == -1:
@@ -69,16 +71,14 @@ class Player:
                 hero.health -= 10  # todo set value enemy
 
 
-    def handle_collision_with_environment (hero, rect_array, enemy_array):
+    def handle_collision_with_environment (hero, rect_array):
         next_hero_rect = pygame.Rect(hero.x if hero.next_x == 0 else hero.next_x,
                                      hero.y if hero.next_y == 0 else hero.next_y, hero.width, hero.height)
 
         collision_x = False
         collision_y = False
 
-        collision_array = rect_array if hero.is_dashing() else rect_array + enemy_array
-
-        for rect in collision_array:
+        for rect in rect_array:
 
             if next_hero_rect.colliderect(rect):
 
@@ -98,8 +98,8 @@ class Player:
                             hero.y = rect.bottom
                             print("collision top")
                             collision_y = True
-                            if hero.jump_state != -16:
-                                hero.jump_state = -16
+                            if hero.is_jumping():
+                                hero.jump_state = hero.init_jumpstate
 
                 next_hero_rect_only_x = pygame.Rect(hero.next_x, hero.y, hero.width, hero.height)
                 if hero.next_x != 0 and next_hero_rect_only_x.colliderect(rect):
@@ -116,7 +116,7 @@ class Player:
                             print("collision right")
                             collision_x = True
 
-        if collision_x == False:
+        if collision_x == False and hero.next_x != 0:
             hero.x = hero.next_x
         if collision_y == False:
             hero.y = hero.next_y
