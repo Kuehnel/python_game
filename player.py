@@ -2,8 +2,8 @@ import pygame
 
 
 class Player:
-    x = 20
-    y = 830
+    x = 100
+    y = 300
     velocity = 5
     width = 30
     height = 50
@@ -25,15 +25,15 @@ class Player:
 
     health = 100
 
-    def is_dashing (self):
+    def is_dashing(self):
         if self.dash_state > self.init_dash_state:
             return True
 
-    def is_jumping (self):
+    def is_jumping(self):
         if self.jump_state > self.init_jumpstate:
             return True
 
-    def handle_movement (self):
+    def handle_movement(self):
         keys_pressed = pygame.key.get_pressed()
 
         if keys_pressed[pygame.K_UP] and not self.is_jumping() and self.grounded:
@@ -49,7 +49,7 @@ class Player:
         if keys_pressed[pygame.K_d] and not self.is_dashing():
             self.dash_state = 0
 
-    def handle_jump (self):
+    def handle_jump(self):
         if self.jump_state > self.init_jumpstate:
             n = 1
             if self.jump_state < 0:
@@ -57,7 +57,7 @@ class Player:
             self.next_y -= (self.jump_state ** 2) * 0.17 * n  # quadratische Formel zur Sprungberechnung
             self.jump_state -= 1
 
-    def handle_dash (self):
+    def handle_dash(self):
         if self.dash_state > self.init_dash_state:
             if self.line_of_sight == 1:
                 self.next_x = self.x + self.dash_speed
@@ -65,13 +65,12 @@ class Player:
                 self.next_x = self.x - self.dash_speed
             self.dash_state -= 1
 
-    def handle_collision_with_enemy (hero, enemy_array):
+    def handle_collision_with_enemy(hero, enemy_array):
         for rect in enemy_array:
             if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(rect) and not hero.is_dashing():
                 hero.health -= 10  # todo set value enemy
 
-
-    def handle_collision_with_environment (hero, rect_array):
+    def handle_collision_with_environment(hero, rect_array):
         next_hero_rect = pygame.Rect(hero.x if hero.next_x == 0 else hero.next_x,
                                      hero.y if hero.next_y == 0 else hero.next_y, hero.width, hero.height)
 

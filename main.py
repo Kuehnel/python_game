@@ -1,4 +1,4 @@
-import pygame, player, level_1
+import pygame, player, level
 import sys
 
 # todo known bugs: reject button spamming with timer, set timer after enemy hit
@@ -6,7 +6,7 @@ import sys
 # pygame init + conf
 pygame.init()
 pygame.display.set_caption("Test")
-screen_width = 1500
+screen_width = 1800
 screen_height = 900
 screen = pygame.display.set_mode([screen_width, screen_height])
 clock = pygame.time.Clock()
@@ -15,13 +15,13 @@ clock = pygame.time.Clock()
 gravity = 5
 
 # init level
-level_1 = level_1.Level_1()
+level = level.Level()
 
 # init hero
 hero = player.Player()
 
 # generate level using the tile map
-level_1.generate_level(level_1.tile_map, screen_width, screen_height)
+level.generate_level()
 
 # game loop
 go = True
@@ -42,10 +42,10 @@ while go:
     hero.handle_dash()
 
     # handle collision with environment
-    hero.handle_collision_with_environment(level_1.rect_array)
+    hero.handle_collision_with_environment(level.rect_array)
 
     # handle collision with enemy
-    hero.handle_collision_with_enemy(level_1.enemy_array)
+    hero.handle_collision_with_enemy(level.enemy_array)
 
-    level_1.draw(hero, screen)
+    level.draw(hero, screen)
     clock.tick(60)
