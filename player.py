@@ -2,7 +2,7 @@ import pygame
 
 
 class Player:
-    x = 100
+    x = 300
     y = 300
     velocity = 5
     width = 30
@@ -20,10 +20,14 @@ class Player:
     grounded = False
     next_y = 0
     next_x = 0
+    indeed_moved_x = 0
     collision_x = False
     collision_y = False
 
     health = 100
+
+    def set_indeed_moved_x(self, new_x):
+        self.indeed_moved_x = new_x - self.x
 
     def is_dashing(self):
         if self.dash_state > self.init_dash_state:
@@ -56,6 +60,7 @@ class Player:
                 n = -1
             self.next_y -= (self.jump_state ** 2) * 0.17 * n  # quadratische Formel zur Sprungberechnung
             self.jump_state -= 1
+            self.grounded = False
 
     def handle_dash(self):
         if self.dash_state > self.init_dash_state:
@@ -105,17 +110,20 @@ class Player:
                     # collision left
                     if hero.x > hero.next_x:
                         if rect.right > next_hero_rect.left:
+                            hero.set_indeed_moved_x(rect.right)
                             hero.x = rect.right
                             print("collision left")
                             collision_x = True
                     # collision right
                     if hero.x < hero.next_x:
                         if rect.left < next_hero_rect.right:
+                            hero.set_indeed_moved_x(rect.left - hero.width)
                             hero.x = rect.left - hero.width
                             print("collision right")
                             collision_x = True
 
         if collision_x == False and hero.next_x != 0:
+            hero.set_indeed_moved_x(hero.next_x)
             hero.x = hero.next_x
         if collision_y == False:
             hero.y = hero.next_y

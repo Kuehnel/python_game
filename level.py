@@ -27,6 +27,7 @@ class Level:
         end = end_kit.End_kit()
 
         self.merge_tile_maps(start, hallway_kit.Hallway_kit())
+        self.merge_tile_maps(self, hallway_kit.Hallway_kit())
         self.merge_tile_maps(self, end)
 
         self.tile_map_to_rect_array()
@@ -108,9 +109,11 @@ class Level:
         screen.fill((0, 0, 0))
 
         for tmp_rect in self.rect_array:
+            tmp_rect.x = tmp_rect.x - player.indeed_moved_x
             pygame.draw.rect(screen, (255, 255, 255), tmp_rect)
 
         for tmp_rect in self.enemy_array:
+            tmp_rect.x = tmp_rect.x - player.indeed_moved_x
             pygame.draw.rect(screen, (255, 255, 0), tmp_rect)
 
         # draw hero
