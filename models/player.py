@@ -2,29 +2,33 @@ import pygame
 
 
 class Player:
-    x = 300
-    y = 300
-    velocity = 5
-    width = 30
-    height = 50
 
-    jump_state = -16
-    init_jumpstate = -16
+    def __init__(self):
+        self.x = 300
+        self.y = 300
+        self.velocity = 5
+        self.width = 30
+        self.height = 50
 
-    dash_state = -16
-    init_dash_state = -16
-    dash_speed = 20
+        self.jump_state = -16
+        self.init_jumpstate = -16
 
-    line_of_sight = 1
+        self.dash_state = -16
+        self.init_dash_state = -16
+        self.dash_speed = 20
 
-    grounded = False
-    next_y = 0
-    next_x = 0
-    indeed_moved_x = 0
-    collision_x = False
-    collision_y = False
+        self.line_of_sight = 1
 
-    health = 100
+        self.grounded = False
+        self.next_y = 0
+        self.next_x = 0
+        self.indeed_moved_x = 0
+        self.collision_x = False
+        self.collision_y = False
+
+        self.health = 100
+        self.highscore = 0
+
 
     def set_indeed_moved_x(self, new_x):
         self.indeed_moved_x = new_x - self.x
@@ -78,6 +82,13 @@ class Player:
         for rect in enemy_array:
             if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(rect) and not hero.is_dashing():
                 hero.health -= 10  # todo set value enemy
+
+    def handle_collision_with_coin(hero, generated_level):
+        for rect in generated_level.coin_array:
+            if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(rect):
+                hero.highscore += 1
+                generated_level.coin_array.remove(rect)
+
 
     def handle_collision_with_environment(hero, rect_array):
         next_hero_rect = pygame.Rect(hero.x if hero.next_x == 0 else hero.next_x,

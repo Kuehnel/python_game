@@ -6,6 +6,7 @@ class End_kit:
     # 3 = wall left
     # 4 = wall right
     # 5 = ceiling
+    # 6 = coin
     # 9 = connector
 
     def __init__(self):

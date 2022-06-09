@@ -1,5 +1,8 @@
+import os
 import sys
 import pygame
+
+from controllers import helper
 from views import menu
 
 
@@ -8,16 +11,23 @@ def show(clock, screen, hero):
 
     while True:
 
-        screen.fill((0, 0, 255))
+        screen.fill((0, 0, 0))
+
+        helper.draw_text(screen, f"Your Highscore: {hero.highscore}", 100, 100)
 
         mx, my = pygame.mouse.get_pos()
 
-        button_1 = pygame.Rect(50, 100, 200, 50)
+        # load and render play button
+        img = pygame.image.load(os.path.join('sprites/buttons', 'menu.png'))
+        btn_menu = img.get_rect()
+        w, h = pygame.display.get_surface().get_size()
+        btn_menu.x = w / 2 - btn_menu.width / 2
+        btn_menu.y = h / 2 - btn_menu.height / 2
+        screen.blit(img, btn_menu)
 
-        if button_1.collidepoint((mx, my)):
+        if btn_menu.collidepoint((mx, my)):
             if click:
                 menu.show(clock, screen)
-        pygame.draw.rect(screen, (255, 0, 0), button_1)
 
         # handle mouse + keyboard input
         for event in pygame.event.get():

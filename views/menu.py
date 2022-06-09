@@ -23,10 +23,21 @@ def show(clock, screen):
         btn_play.y = h / 2 - btn_play.height / 2
         screen.blit(img, btn_play)
 
-        # event when play button clicked
-        if btn_play.collidepoint((mx, my)):
-            if click:
+        # load and render quit button
+        img = pygame.image.load(os.path.join('sprites/buttons', 'quit.png'))
+        btn_quit = img.get_rect()
+        w, h = pygame.display.get_surface().get_size()
+        btn_quit.x = w / 2 - btn_quit.width / 2
+        btn_quit.y = (h / 2 - btn_quit.height / 2) + btn_quit.height + 100
+        screen.blit(img, btn_quit)
+
+        # event when button clicked
+        if click:
+            if btn_play.collidepoint((mx, my)):
                 game.start(clock, screen)
+            if btn_quit.collidepoint((mx, my)):
+                pygame.quit()
+                sys.exit()
 
         # handle mouse + keyboard input
         for event in pygame.event.get():

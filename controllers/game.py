@@ -47,6 +47,9 @@ def start(clock, screen):
         # handle collision with enemy
         hero.handle_collision_with_enemy(generated_level.enemy_array)
 
+        # handle collision with coin
+        hero.handle_collision_with_coin(generated_level)
+
         if hero.is_alive():
             generated_level.draw(hero, screen)
         else:
