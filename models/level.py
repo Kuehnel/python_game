@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 
 from kitbashing import start_kit, end_kit, hallway_kit

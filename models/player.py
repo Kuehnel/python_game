@@ -37,6 +37,10 @@ class Player:
         if self.jump_state > self.init_jumpstate:
             return True
 
+    def is_alive(self):
+        if self.health > 0:
+            return True
+
     def handle_movement(self):
         keys_pressed = pygame.key.get_pressed()
 
@@ -122,9 +126,8 @@ class Player:
                             print("collision right")
                             collision_x = True
 
-        if collision_x == False and hero.next_x != 0:
+        if not collision_x and hero.next_x != 0:
             hero.set_indeed_moved_x(hero.next_x)
             hero.x = hero.next_x
-        if collision_y == False:
+        if not collision_y:
             hero.y = hero.next_y
-
