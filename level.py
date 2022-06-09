@@ -1,8 +1,6 @@
 import pygame
 
-import end_kit
-import hallway_kit
-import start_kit
+from kitbashing import start_kit, end_kit, hallway_kit
 
 
 class Level:
