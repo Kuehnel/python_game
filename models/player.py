@@ -71,7 +71,7 @@ class Player:
             self.grounded = False
 
     def handle_dash(self):
-        if self.dash_state > self.init_dash_state:
+        if self.dash_state > self.init_dash_state and not self.is_jumping():
             if self.line_of_sight == 1:
                 self.next_x = self.x + self.dash_speed
             if self.line_of_sight == -1:
