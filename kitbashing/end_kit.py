@@ -8,11 +8,12 @@ class End_kit:
     # 5 = ceiling
     # 6 = coin
     # 9 = connector
+    # 8 = goal
 
     def __init__(self):
         self.tile_map = [[5, 5, 5, 5, 5, 5],
                          [9, 0, 0, 0, 0, 4],
-                         [3, 0, 0, 0, 0, 4],
+                         [3, 0, 0, 0, 8, 4],
                          [1, 1, 1, 1, 1, 1],
 
                          ]

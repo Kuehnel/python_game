@@ -27,6 +27,8 @@ class Level:
 
         self.coin_array = []
 
+        self.goal_rect = []
+
     def generate_level(self):
 
         start = start_kit.Start_kit()
@@ -107,9 +109,12 @@ class Level:
                         pygame.Rect(self.pointer_x, self.pointer_y + self.tile_size - 20, self.block_width,
                                     self.block_height))
                 if column == 6:
-                    # add wall ceiling
+                    # add coin
                     self.coin_array.append(
                         pygame.Rect(self.pointer_x, self.pointer_y, 20, self.block_height))
+                if column == 8:
+                    # add goal
+                    self.goal_rect = pygame.Rect(self.pointer_x + 100 - 20, self.pointer_y, 20, 100)
                 self.pointer_x += self.tile_size
             self.pointer_x = 0
             self.pointer_y += self.tile_size
@@ -129,6 +134,10 @@ class Level:
         for tmp_rect in self.coin_array:
             tmp_rect.x = tmp_rect.x - player.indeed_moved_x
             pygame.draw.rect(screen, (255, 255, 0), tmp_rect)
+
+        # draw goal
+        self.goal_rect.x = self.goal_rect.x - player.indeed_moved_x
+        pygame.draw.rect(screen, (0, 255, 0), self.goal_rect)
 
         # draw hero
         pygame.draw.rect(screen, (255, 150, 150), (player.x, player.y, player.width, player.height))
