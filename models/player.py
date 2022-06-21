@@ -12,10 +12,12 @@ class Player:
 
         self.jump_state = -16
         self.init_jumpstate = -16
+        self.last_jump = 0
 
         self.dash_state = -16
         self.init_dash_state = -16
         self.dash_speed = 20
+        self.last_dash = 0
 
         self.line_of_sight = 1
 
@@ -44,8 +46,20 @@ class Player:
         if self.dash_state > self.init_dash_state:
             return True
 
+    def allowed_to_dash(self):
+        now_in_ms = pygame.time.get_ticks()
+        if (now_in_ms - self.last_dash) > 1000 and not self.is_dashing():
+            self.last_dash = now_in_ms
+            return True
+
     def is_jumping(self):
         if self.jump_state > self.init_jumpstate:
+            return True
+
+    def allowed_to_jump(self):
+        now_in_ms = pygame.time.get_ticks()
+        if (now_in_ms - self.last_jump) > 500 and not self.is_jumping() and self.grounded:
+            self.last_jump = now_in_ms
             return True
 
     def is_alive(self):
@@ -55,7 +69,7 @@ class Player:
     def handle_movement(self):
         keys_pressed = pygame.key.get_pressed()
 
-        if keys_pressed[pygame.K_UP] and not self.is_jumping() and self.grounded:
+        if keys_pressed[pygame.K_UP] and self.allowed_to_jump():
             self.jump_state = self.init_jumpstate * -1
         if keys_pressed[pygame.K_DOWN]:
             self.next_y = self.y + self.velocity
@@ -65,7 +79,7 @@ class Player:
         if keys_pressed[pygame.K_LEFT]:
             self.line_of_sight = -1
             self.next_x = self.x - self.velocity
-        if keys_pressed[pygame.K_d] and not self.is_dashing():
+        if keys_pressed[pygame.K_d] and self.allowed_to_dash():
             self.dash_state = 0
 
     def handle_jump(self):
