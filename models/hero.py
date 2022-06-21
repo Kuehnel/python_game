@@ -1,14 +1,14 @@
 import pygame
 
 
-class Player:
+class Hero:
 
     def __init__(self):
         self.x = 300
         self.y = 300
         self.velocity = 5
-        self.width = 30
-        self.height = 50
+        self.width = 32
+        self.height = 32
 
         self.jump_state = -16
         self.init_jumpstate = -16

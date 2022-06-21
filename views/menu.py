@@ -14,11 +14,11 @@ def show(clock, screen):
 
         # get mouse position
         mx, my = pygame.mouse.get_pos()
+        w, h = pygame.display.get_surface().get_size()
 
         # load and render play button
         img = pygame.image.load(os.path.join('sprites/buttons', 'play.png'))
         btn_play = img.get_rect()
-        w, h = pygame.display.get_surface().get_size()
         btn_play.x = w / 2 - btn_play.width / 2
         btn_play.y = h / 2 - btn_play.height / 2
         screen.blit(img, btn_play)
@@ -26,7 +26,6 @@ def show(clock, screen):
         # load and render quit button
         img = pygame.image.load(os.path.join('sprites/buttons', 'quit.png'))
         btn_quit = img.get_rect()
-        w, h = pygame.display.get_surface().get_size()
         btn_quit.x = w / 2 - btn_quit.width / 2
         btn_quit.y = (h / 2 - btn_quit.height / 2) + btn_quit.height + 100
         screen.blit(img, btn_quit)

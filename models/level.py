@@ -1,4 +1,4 @@
-import sys
+import os
 
 import pygame
 
@@ -119,37 +119,43 @@ class Level:
             self.pointer_x = 0
             self.pointer_y += self.tile_size
 
-    def draw(self, player, screen):
+    def draw(self, hero, screen):
         # draw background
         screen.fill((0, 0, 0))
 
         for tmp_rect in self.rect_array:
-            tmp_rect.x = tmp_rect.x - player.indeed_moved_x
+            tmp_rect.x = tmp_rect.x - hero.indeed_moved_x
             pygame.draw.rect(screen, (255, 255, 255), tmp_rect)
 
         for tmp_rect in self.enemy_array:
-            tmp_rect.x = tmp_rect.x - player.indeed_moved_x
+            tmp_rect.x = tmp_rect.x - hero.indeed_moved_x
             pygame.draw.rect(screen, (255, 0, 0), tmp_rect)
 
         for tmp_rect in self.coin_array:
-            tmp_rect.x = tmp_rect.x - player.indeed_moved_x
+            tmp_rect.x = tmp_rect.x - hero.indeed_moved_x
             pygame.draw.rect(screen, (255, 255, 0), tmp_rect)
 
         # draw goal
-        self.goal_rect.x = self.goal_rect.x - player.indeed_moved_x
+        self.goal_rect.x = self.goal_rect.x - hero.indeed_moved_x
         pygame.draw.rect(screen, (0, 255, 0), self.goal_rect)
 
         # draw hero
-        if player.is_damaged():
-            pygame.draw.rect(screen, (0, 255, 0), (player.x, player.y, player.width, player.height))
+        if hero.is_damaged():
+            pygame.draw.rect(screen, (0, 255, 0), (hero.x, hero.y, hero.width, hero.height))
         else:
-            pygame.draw.rect(screen, (255, 150, 150), (player.x, player.y, player.width, player.height))
+            #pygame.draw.rect(screen, (255, 150, 150), (hero.x, hero.y, hero.width, hero.height))
+
+            img = pygame.image.load(os.path.join('sprites/hero', 'hero_idle.png'))
+            btn_play = img.get_rect()
+            btn_play.x = hero.x
+            btn_play.y = hero.y
+            screen.blit(img, btn_play)
 
         # draw health
-        helper.draw_text(screen, f"Life: {player.health}", 10, 10)
+        helper.draw_text(screen, f"Life: {hero.health}", 10, 10)
 
         # draw highscore
-        helper.draw_text(screen, f"Highscore: {player.highscore}", 300, 10)
+        helper.draw_text(screen, f"Highscore: {hero.highscore}", 300, 10)
 
         # update display
         pygame.display.update()

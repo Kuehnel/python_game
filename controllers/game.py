@@ -1,8 +1,10 @@
+import os
 import sys
 import pygame
 
+from models.hero import Hero
 from views import gameover
-from models import level, player
+from models import level
 
 
 def start(clock, screen):
@@ -13,7 +15,7 @@ def start(clock, screen):
     generated_level = level.Level()
 
     # init hero
-    hero = player.Player()
+    hero = Hero()
 
     # generate level using the tile map
     generated_level.generate_level()
