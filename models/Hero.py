@@ -1,6 +1,6 @@
 import pygame
 
-from models.hero_state import HeroState
+from models.HeroState import HeroState
 
 
 class Hero:
@@ -77,43 +77,7 @@ class Hero:
         if self.health > 0:
             return True
 
-    def handle_movement(self):
-        keys_pressed = pygame.key.get_pressed()
 
-        if keys_pressed[pygame.K_UP] and self.allowed_to_jump():
-            self.jump_state = self.init_jumpstate * -1
-            self.change_state(HeroState.JUMP)
-        if keys_pressed[pygame.K_DOWN]:
-            self.next_y = self.y + self.velocity
-        if keys_pressed[pygame.K_RIGHT]:
-            self.line_of_sight = 1
-            self.next_x = self.x + self.velocity
-            self.change_state(HeroState.RUN)
-        if keys_pressed[pygame.K_LEFT]:
-            self.line_of_sight = -1
-            self.next_x = self.x - self.velocity
-        if keys_pressed[pygame.K_d] and self.allowed_to_dash():
-            self.dash_state = 0
-
-        if not keys_pressed[pygame.K_RIGHT] and not keys_pressed[pygame.K_LEFT] and not self.is_dashing() and not self.is_jumping():
-            self.change_state(HeroState.IDLE)
-
-    def handle_jump(self):
-        if self.jump_state > self.init_jumpstate:
-            n = 1
-            if self.jump_state < 0:
-                n = -1
-            self.next_y -= (self.jump_state ** 2) * 0.17 * n  # quadratische Formel zur Sprungberechnung
-            self.jump_state -= 1
-            self.grounded = False
-
-    def handle_dash(self):
-        if self.dash_state > self.init_dash_state and not self.is_jumping():
-            if self.line_of_sight == 1:
-                self.next_x = self.x + self.dash_speed
-            if self.line_of_sight == -1:
-                self.next_x = self.x - self.dash_speed
-            self.dash_state -= 1
 
     def handle_collision_with_enemy(self, enemy_array):
         if self.is_damaged():

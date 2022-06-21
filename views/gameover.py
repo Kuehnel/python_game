@@ -2,7 +2,7 @@ import os
 import sys
 import pygame
 
-from controllers import helper
+from controllers import HelperController
 from views import menu
 
 

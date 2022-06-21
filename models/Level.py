@@ -1,7 +1,7 @@
 import pygame
 
-from controllers import helper
-from kitbashing import start_kit, end_kit, hallway_kit
+from controllers import HelperController
+from kitbashing import StartKit, EndKit, HallwayKit
 
 
 class Level:
@@ -29,11 +29,11 @@ class Level:
 
     def generate_level(self):
 
-        start = start_kit.Start_kit()
-        end = end_kit.End_kit()
+        start = StartKit.Start_kit()
+        end = EndKit.End_kit()
 
-        self.merge_tile_maps(start, hallway_kit.Hallway_kit())
-        self.merge_tile_maps(self, hallway_kit.Hallway_kit())
+        self.merge_tile_maps(start, HallwayKit.Hallway_kit())
+        self.merge_tile_maps(self, HallwayKit.Hallway_kit())
         self.merge_tile_maps(self, end)
 
         self.tile_map_to_rect_array()
@@ -140,10 +140,10 @@ class Level:
         screen.blit(hero.img, (hero.x, hero.y))
 
         # draw health
-        helper.draw_text(screen, f"Life: {hero.health}", 10, 10)
+        HelperController.draw_text(screen, f"Life: {hero.health}", 10, 10)
 
         # draw highscore
-        helper.draw_text(screen, f"Highscore: {hero.highscore}", 300, 10)
+        HelperController.draw_text(screen, f"Highscore: {hero.highscore}", 300, 10)
 
         # update display
         pygame.display.update()

@@ -2,10 +2,11 @@ import os
 import sys
 import pygame
 
-from models.spritesheet import Spritesheet
-from models.hero import Hero
+from controllers.MovementController import handle_movement, handle_jump, handle_dash
+from models.Spritesheet import Spritesheet
+from models.Hero import Hero
 from views import gameover
-from models import level
+from models import Level
 
 
 def start(clock, screen):
@@ -13,7 +14,7 @@ def start(clock, screen):
     gravity = 5
 
     # init level
-    generated_level = level.Level()
+    generated_level = Level.Level()
 
     # init hero
     hero = Hero()
@@ -59,16 +60,16 @@ def start(clock, screen):
                     go = False
 
         # handle hero movement
-        hero.handle_movement()
+        handle_movement(hero)
 
         # handle gravity
         hero.next_y = hero.y + gravity
 
         # handle jump
-        hero.handle_jump()
+        handle_jump(hero)
 
         # handle dash
-        hero.handle_dash()
+        handle_dash(hero)
 
         # handle collision with environment
         hero.handle_collision_with_environment(generated_level.rect_array)
