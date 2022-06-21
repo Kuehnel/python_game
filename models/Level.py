@@ -1,6 +1,6 @@
 import pygame
 
-from controllers import HelperController
+from controllers.HelperController import draw_text
 from kitbashing import StartKit, EndKit, HallwayKit
 
 
@@ -137,13 +137,18 @@ class Level:
         pygame.draw.rect(screen, (0, 255, 0), self.goal_rect)
 
         # draw hero
-        screen.blit(hero.img, (hero.x, hero.y))
+        if hero.line_of_sight == 1:
+            screen.blit(hero.img, (hero.x, hero.y))
+        else:
+            img = pygame.transform.flip(hero.img, True, False)  # flip hero img
+            img.set_colorkey((0, 0, 0))
+            screen.blit(img, (hero.x, hero.y))
 
         # draw health
-        HelperController.draw_text(screen, f"Life: {hero.health}", 10, 10)
+        draw_text(screen, f"Life: {hero.health}", 10, 10)
 
         # draw highscore
-        HelperController.draw_text(screen, f"Highscore: {hero.highscore}", 300, 10)
+        draw_text(screen, f"Highscore: {hero.highscore}", 300, 10)
 
         # update display
         pygame.display.update()

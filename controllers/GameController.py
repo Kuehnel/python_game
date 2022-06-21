@@ -2,6 +2,8 @@ import os
 import sys
 import pygame
 
+from controllers.CollisionController import handle_collision_with_environment, handle_collision_with_enemy, \
+    handle_collision_with_coin
 from controllers.MovementController import handle_movement, handle_jump, handle_dash
 from models.Spritesheet import Spritesheet
 from models.Hero import Hero
@@ -72,15 +74,17 @@ def start(clock, screen):
         handle_dash(hero)
 
         # handle collision with environment
-        hero.handle_collision_with_environment(generated_level.rect_array)
+        handle_collision_with_environment(hero, generated_level.rect_array)
 
         # handle collision with enemy
-        hero.handle_collision_with_enemy(generated_level.enemy_array)
+        handle_collision_with_enemy(hero, generated_level.enemy_array)
 
         # handle collision with coin
-        hero.handle_collision_with_coin(generated_level)
+        handle_collision_with_coin(hero, generated_level)
 
-        hero.img_index = (hero.img_index + 1) % len(hero.img_list)
+        hero.img_clock = hero.img_clock + 1
+        if (hero.img_clock / 5).is_integer():
+            hero.img_index = (hero.img_index + 1) % len(hero.img_list)
         hero.img = hero.img_list[hero.img_index]
 
         if hero.is_alive():

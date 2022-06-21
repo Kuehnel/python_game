@@ -1,6 +1,6 @@
 import os
 
-from controllers import GameController
+from controllers.GameController import start
 import pygame
 import sys
 
@@ -33,7 +33,7 @@ def show(clock, screen):
         # event when button clicked
         if click:
             if btn_play.collidepoint((mx, my)):
-                GameController.start(clock, screen)
+                start(clock, screen)
             if btn_quit.collidepoint((mx, my)):
                 pygame.quit()
                 sys.exit()
