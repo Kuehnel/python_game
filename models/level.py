@@ -140,7 +140,10 @@ class Level:
         pygame.draw.rect(screen, (0, 255, 0), self.goal_rect)
 
         # draw hero
-        pygame.draw.rect(screen, (255, 150, 150), (player.x, player.y, player.width, player.height))
+        if player.is_damaged():
+            pygame.draw.rect(screen, (0, 255, 0), (player.x, player.y, player.width, player.height))
+        else:
+            pygame.draw.rect(screen, (255, 150, 150), (player.x, player.y, player.width, player.height))
 
         # draw health
         helper.draw_text(screen, f"Life: {player.health}", 10, 10)

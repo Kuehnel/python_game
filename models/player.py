@@ -27,11 +27,18 @@ class Player:
         self.collision_y = False
 
         self.health = 100
+        self.damage_state = 0
+
         self.highscore = 0
 
 
     def set_indeed_moved_x(self, new_x):
         self.indeed_moved_x = new_x - self.x
+
+    def is_damaged(self):
+        if self.damage_state > 0:
+            return True
+        return False
 
     def is_dashing(self):
         if self.dash_state > self.init_dash_state:
@@ -78,10 +85,14 @@ class Player:
                 self.next_x = self.x - self.dash_speed
             self.dash_state -= 1
 
-    def handle_collision_with_enemy(hero, enemy_array):
-        for rect in enemy_array:
-            if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(rect) and not hero.is_dashing():
-                hero.health -= 10  # todo set value enemy
+    def handle_collision_with_enemy(self, enemy_array):
+        if self.is_damaged():
+            self.damage_state = self.damage_state - 1
+        else:
+            for rect in enemy_array:
+                if pygame.Rect(self.x, self.y, self.width, self.height).colliderect(rect) and not self.is_dashing() and not self.is_damaged():
+                    self.health -= 10  # todo set value enemy
+                    self.damage_state = 60
 
     def handle_collision_with_coin(hero, generated_level):
         for rect in generated_level.coin_array:
