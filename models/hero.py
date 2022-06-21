@@ -1,5 +1,7 @@
 import pygame
 
+from models.hero_state import HeroState
+
 
 class Hero:
 
@@ -33,6 +35,15 @@ class Hero:
 
         self.highscore = 0
 
+        self.img = None
+        self.img_index = 0
+        self.img_list = []
+        self.state = HeroState.IDLE
+
+        self.idle_img_list = []
+        self.run_img_list = []
+        self.jump_img_list = []
+        self.damaged_img_list = []
 
     def set_indeed_moved_x(self, new_x):
         self.indeed_moved_x = new_x - self.x
@@ -71,16 +82,21 @@ class Hero:
 
         if keys_pressed[pygame.K_UP] and self.allowed_to_jump():
             self.jump_state = self.init_jumpstate * -1
+            self.change_state(HeroState.JUMP)
         if keys_pressed[pygame.K_DOWN]:
             self.next_y = self.y + self.velocity
         if keys_pressed[pygame.K_RIGHT]:
             self.line_of_sight = 1
             self.next_x = self.x + self.velocity
+            self.change_state(HeroState.RUN)
         if keys_pressed[pygame.K_LEFT]:
             self.line_of_sight = -1
             self.next_x = self.x - self.velocity
         if keys_pressed[pygame.K_d] and self.allowed_to_dash():
             self.dash_state = 0
+
+        if not keys_pressed[pygame.K_RIGHT] and not keys_pressed[pygame.K_LEFT] and not self.is_dashing() and not self.is_jumping():
+            self.change_state(HeroState.IDLE)
 
     def handle_jump(self):
         if self.jump_state > self.init_jumpstate:
@@ -101,23 +117,27 @@ class Hero:
 
     def handle_collision_with_enemy(self, enemy_array):
         if self.is_damaged():
+            if self.dash_state == 1:
+                self.change_state(HeroState.IDLE)
             self.damage_state = self.damage_state - 1
+            self.change_state(HeroState.DAMAGED)
         else:
             for rect in enemy_array:
-                if pygame.Rect(self.x, self.y, self.width, self.height).colliderect(rect) and not self.is_dashing() and not self.is_damaged():
+                if pygame.Rect(self.x, self.y, self.width, self.height).colliderect(
+                        rect) and not self.is_dashing() and not self.is_damaged():
                     self.health -= 10  # todo set value enemy
                     self.damage_state = 60
+                    self.change_state(HeroState.DAMAGED)
 
-    def handle_collision_with_coin(hero, generated_level):
+    def handle_collision_with_coin(self, generated_level):
         for rect in generated_level.coin_array:
-            if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(rect):
-                hero.highscore += 1
+            if pygame.Rect(self.x, self.y, self.width, self.height).colliderect(rect):
+                self.highscore += 1
                 generated_level.coin_array.remove(rect)
 
-
-    def handle_collision_with_environment(hero, rect_array):
-        next_hero_rect = pygame.Rect(hero.x if hero.next_x == 0 else hero.next_x,
-                                     hero.y if hero.next_y == 0 else hero.next_y, hero.width, hero.height)
+    def handle_collision_with_environment(self, rect_array):
+        next_hero_rect = pygame.Rect(self.x if self.next_x == 0 else self.next_x,
+                                     self.y if self.next_y == 0 else self.next_y, self.width, self.height)
 
         collision_x = False
         collision_y = False
@@ -126,44 +146,57 @@ class Hero:
 
             if next_hero_rect.colliderect(rect):
 
-                hero.grounded = False
-                next_hero_rect_only_y = pygame.Rect(hero.x, hero.next_y, hero.width, hero.height)
+                self.grounded = False
+                next_hero_rect_only_y = pygame.Rect(self.x, self.next_y, self.width, self.height)
 
-                if hero.next_y != 0 and next_hero_rect_only_y.colliderect(rect):
+                if self.next_y != 0 and next_hero_rect_only_y.colliderect(rect):
                     # collision bottom
-                    if hero.y < hero.next_y:
+                    if self.y < self.next_y:
                         if rect.top < next_hero_rect.bottom:
-                            hero.grounded = True
-                            hero.y = rect.top - hero.height
+                            self.grounded = True
+                            self.y = rect.top - self.height
                             collision_y = True
                     # collision top
-                    if hero.y > hero.next_y:
+                    if self.y > self.next_y:
                         if rect.bottom > next_hero_rect.top:
-                            hero.y = rect.bottom
+                            self.y = rect.bottom
                             print("collision top")
                             collision_y = True
-                            if hero.is_jumping():
-                                hero.jump_state = hero.init_jumpstate
+                            if self.is_jumping():
+                                self.jump_state = self.init_jumpstate
 
-                next_hero_rect_only_x = pygame.Rect(hero.next_x, hero.y, hero.width, hero.height)
-                if hero.next_x != 0 and next_hero_rect_only_x.colliderect(rect):
+                next_hero_rect_only_x = pygame.Rect(self.next_x, self.y, self.width, self.height)
+                if self.next_x != 0 and next_hero_rect_only_x.colliderect(rect):
                     # collision left
-                    if hero.x > hero.next_x:
+                    if self.x > self.next_x:
                         if rect.right > next_hero_rect.left:
-                            hero.set_indeed_moved_x(rect.right)
-                            hero.x = rect.right
+                            self.set_indeed_moved_x(rect.right)
+                            self.x = rect.right
                             print("collision left")
                             collision_x = True
                     # collision right
-                    if hero.x < hero.next_x:
+                    if self.x < self.next_x:
                         if rect.left < next_hero_rect.right:
-                            hero.set_indeed_moved_x(rect.left - hero.width)
-                            hero.x = rect.left - hero.width
+                            self.set_indeed_moved_x(rect.left - self.width)
+                            self.x = rect.left - self.width
                             print("collision right")
                             collision_x = True
 
-        if not collision_x and hero.next_x != 0:
-            hero.set_indeed_moved_x(hero.next_x)
-            hero.x = hero.next_x
+        if not collision_x and self.next_x != 0:
+            self.set_indeed_moved_x(self.next_x)
+            self.x = self.next_x
         if not collision_y:
-            hero.y = hero.next_y
+            self.y = self.next_y
+
+    def change_state(self, new_state):
+        if self.state != new_state:
+            self.state = new_state
+            if self.state == HeroState.RUN:
+                self.img_list = self.run_img_list
+            elif self.state == HeroState.IDLE:
+                self.img_list = self.idle_img_list
+            elif self.state == HeroState.JUMP:
+                self.img_list = self.jump_img_list
+            elif self.state == HeroState.DAMAGED:
+                self.img_list = self.damaged_img_list
+            self.img_index = 0

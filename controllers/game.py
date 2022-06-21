@@ -2,6 +2,7 @@ import os
 import sys
 import pygame
 
+from models.spritesheet import Spritesheet
 from models.hero import Hero
 from views import gameover
 from models import level
@@ -16,6 +17,32 @@ def start(clock, screen):
 
     # init hero
     hero = Hero()
+
+    # TODO load images
+    hero_idle_img = pygame.image.load(os.path.join('sprites/hero', 'hero_idle.png')).convert_alpha()
+    hero_idle_sheet = Spritesheet(hero_idle_img)
+    hero.idle_img_list = [hero_idle_sheet.get_image(0, 32, 32, 1), hero_idle_sheet.get_image(1, 32, 32, 1),
+                          hero_idle_sheet.get_image(2, 32, 32, 1), hero_idle_sheet.get_image(3, 32, 32, 1)]
+
+    hero_run_img = pygame.image.load(os.path.join('sprites/hero', 'hero_run.png')).convert_alpha()
+    hero_run_sheet = Spritesheet(hero_run_img)
+    hero.run_img_list = [hero_run_sheet.get_image(0, 32, 32, 1), hero_run_sheet.get_image(1, 32, 32, 1),
+                         hero_run_sheet.get_image(2, 32, 32, 1), hero_run_sheet.get_image(3, 32, 32, 1),
+                         hero_run_sheet.get_image(4, 32, 32, 1), hero_run_sheet.get_image(5, 32, 32, 1)]
+
+    hero_jump_img = pygame.image.load(os.path.join('sprites/hero', 'hero_jump.png')).convert_alpha()
+    hero_jump_sheet = Spritesheet(hero_jump_img)
+    hero.jump_img_list = [hero_jump_sheet.get_image(0, 32, 32, 1), hero_jump_sheet.get_image(1, 32, 32, 1),
+                          hero_jump_sheet.get_image(2, 32, 32, 1), hero_jump_sheet.get_image(3, 32, 32, 1),
+                          hero_jump_sheet.get_image(4, 32, 32, 1), hero_jump_sheet.get_image(5, 32, 32, 1),
+                          hero_jump_sheet.get_image(6, 32, 32, 1), hero_jump_sheet.get_image(9, 32, 32, 1)]
+
+    hero_damaged_img = pygame.image.load(os.path.join('sprites/hero', 'hero_damaged.png')).convert_alpha()
+    hero_damaged_sheet = Spritesheet(hero_damaged_img)
+    hero.damaged_img_list = [hero_damaged_sheet.get_image(0, 32, 32, 1), hero_damaged_sheet.get_image(1, 32, 32, 1),
+                             hero_damaged_sheet.get_image(2, 32, 32, 1), hero_damaged_sheet.get_image(3, 32, 32, 1)]
+
+    hero.img_list = hero.idle_img_list
 
     # generate level using the tile map
     generated_level.generate_level()
@@ -51,6 +78,9 @@ def start(clock, screen):
 
         # handle collision with coin
         hero.handle_collision_with_coin(generated_level)
+
+        hero.img_index = (hero.img_index + 1) % len(hero.img_list)
+        hero.img = hero.img_list[hero.img_index]
 
         if hero.is_alive():
             generated_level.draw(hero, screen)

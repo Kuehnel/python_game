@@ -1,5 +1,3 @@
-import os
-
 import pygame
 
 from controllers import helper
@@ -82,7 +80,6 @@ class Level:
                 break
             index = index + 1
 
-
     def tile_map_to_rect_array(self):
         for row in self.tile_map:
             for column in row:
@@ -140,16 +137,7 @@ class Level:
         pygame.draw.rect(screen, (0, 255, 0), self.goal_rect)
 
         # draw hero
-        if hero.is_damaged():
-            pygame.draw.rect(screen, (0, 255, 0), (hero.x, hero.y, hero.width, hero.height))
-        else:
-            #pygame.draw.rect(screen, (255, 150, 150), (hero.x, hero.y, hero.width, hero.height))
-
-            img = pygame.image.load(os.path.join('sprites/hero', 'hero_idle.png'))
-            btn_play = img.get_rect()
-            btn_play.x = hero.x
-            btn_play.y = hero.y
-            screen.blit(img, btn_play)
+        screen.blit(hero.img, (hero.x, hero.y))
 
         # draw health
         helper.draw_text(screen, f"Life: {hero.health}", 10, 10)
