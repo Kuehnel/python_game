@@ -28,7 +28,7 @@ class Level:
 
         self.coin_array = []
 
-        self.goal_rect = []
+        self.goal_rect = None
 
         self.bg_img = pygame.image.load(os.path.join('sprites/island/background', 'background.png')).convert_alpha()
         self.platform_img = pygame.image.load(os.path.join('sprites/island', 'platform.png')).convert_alpha()
@@ -38,6 +38,7 @@ class Level:
         self.floor_left_img = pygame.image.load(os.path.join('sprites/island', 'floor_left.png')).convert_alpha()
         self.block_img = pygame.image.load(os.path.join('sprites/island', 'block.png')).convert_alpha()
         self.wall_img = pygame.image.load(os.path.join('sprites/island', 'wall.png')).convert_alpha()
+        self.goal_img = pygame.image.load(os.path.join('sprites/island', 'goal.png')).convert_alpha()
 
     def generate_level(self):
 
@@ -54,6 +55,8 @@ class Level:
                                                (self.coin_img.get_width() * 3, self.coin_img.get_height() * 3))
         self.spikes_img = pygame.transform.scale(self.spikes_img,
                                                  (self.spikes_img.get_width() * 2, self.spikes_img.get_height() * 2))
+        self.goal_img = pygame.transform.scale(self.goal_img,
+                                               (self.goal_img.get_width() * 3, self.goal_img.get_height() * 3))
 
     # fill tile_maps with neutral rows until both connector rows have same index
     def merge_tile_maps(self, start_kit, extension_kit):
@@ -131,7 +134,7 @@ class Level:
                         [pygame.Rect(self.pointer_x, self.pointer_y, self.tile_size, self.tile_size_small), 7])
                 if column == 8:
                     # add goal
-                    self.goal_rect = pygame.Rect(self.pointer_x + self.tile_size - self.tile_size_small, self.pointer_y, self.tile_size_small, self.tile_size)
+                    self.goal_rect = pygame.Rect(self.pointer_x + self.tile_size_small, self.pointer_y, self.tile_size_small, self.tile_size)
                 if column == 9:
                     # add block
                     self.tile_array.append(
@@ -176,7 +179,7 @@ class Level:
 
         # draw goal
         self.goal_rect.x = self.goal_rect.x - hero.indeed_moved_x
-        pygame.draw.rect(screen, (0, 255, 0), self.goal_rect)
+        screen.blit(self.goal_img, (self.goal_rect.x, self.goal_rect.y))
 
         # draw hero
         if hero.line_of_sight == 1:
