@@ -4,6 +4,7 @@ import pygame
 
 from controllers.HelperController import draw_text
 from kitbashing import StartKit, EndKit, HallwayKit
+from models.Crabby import Crabby
 
 
 class Level:
@@ -21,7 +22,9 @@ class Level:
 
         self.tile_array = []
 
-        self.enemy_array = []
+        self.trap_array = []
+
+        self.crabby_array = []
 
         self.coin_array = []
 
@@ -30,7 +33,7 @@ class Level:
         self.bg_img = pygame.image.load(os.path.join('sprites/island/background', 'background.png')).convert_alpha()
         self.platform_img = pygame.image.load(os.path.join('sprites/island', 'platform.png')).convert_alpha()
         self.coin_img = pygame.image.load(os.path.join('sprites/collectables', 'coin.png')).convert_alpha()
-        self.spikes_img = pygame.image.load(os.path.join('sprites/enemies', 'spikes.png')).convert_alpha()
+        self.spikes_img = pygame.image.load(os.path.join('sprites/traps', 'spikes.png')).convert_alpha()
         self.floor_img = pygame.image.load(os.path.join('sprites/island', 'floor.png')).convert_alpha()
         self.floor_left_img = pygame.image.load(os.path.join('sprites/island', 'floor_left.png')).convert_alpha()
         self.block_img = pygame.image.load(os.path.join('sprites/island', 'block.png')).convert_alpha()
@@ -104,16 +107,15 @@ class Level:
                         [pygame.Rect(self.pointer_x, self.pointer_y, self.tile_size, self.tile_size), 1])
                 if column == 2:
                     # add enemy
-                    self.enemy_array.append(
-                        pygame.Rect(self.pointer_x, self.pointer_y + self.tile_size_small, self.tile_size_small, self.tile_size_small))
+                    self.trap_array.append(
+                        [pygame.Rect(self.pointer_x, self.pointer_y + self.tile_size_small, self.tile_size_small, self.tile_size_small), 2])
                 if column == 3:
-                    # add wall left
+                    # add wall
                     self.tile_array.append(
                         [pygame.Rect(self.pointer_x, self.pointer_y, self.tile_size_small, self.tile_size), 3])
                 if column == 4:
-                    # add wall right
-                    self.tile_array.append(
-                        [pygame.Rect(self.pointer_x + self.tile_size - self.tile_size_small, self.pointer_y, self.tile_size_small, self.tile_size), 4])
+                    # add crabby
+                    self.crabby_array.append(Crabby(self.pointer_x - self.tile_size_small, self.pointer_y + self.tile_size_small + 7))
                 if column == 5:
                     # add wall ceiling
                     self.tile_array.append(
@@ -157,9 +159,16 @@ class Level:
             else:
                 pygame.draw.rect(screen, (255, 255, 255), tmp_rect)
 
-        for tmp_rect in self.enemy_array:
+        for trap in self.trap_array:
+            tmp_rect = trap[0]
+            enemy_type = trap[1]
             tmp_rect.x = tmp_rect.x - hero.indeed_moved_x
-            screen.blit(self.spikes_img, (tmp_rect.x, tmp_rect.y))
+            if enemy_type == 2:
+                screen.blit(self.spikes_img, (tmp_rect.x, tmp_rect.y))
+
+        for crabby in self.crabby_array:
+            crabby.x = crabby.x - hero.indeed_moved_x
+            screen.blit(crabby.img, (crabby.x, crabby.y))
 
         for tmp_rect in self.coin_array:
             tmp_rect.x = tmp_rect.x - hero.indeed_moved_x

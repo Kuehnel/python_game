@@ -2,9 +2,10 @@ import os
 import sys
 import pygame
 
-from controllers.CollisionController import handle_collision_with_environment, handle_collision_with_enemy, \
+from controllers.CollisionController import handle_collision_with_environment, handle_collision_with_traps_and_enemies, \
     handle_collision_with_coin
 from controllers.MovementController import handle_movement, handle_jump, handle_dash
+from models.CharacterState import CharacterState
 from models.Spritesheet import Spritesheet
 from models.Hero import Hero
 from views import gameover
@@ -77,15 +78,32 @@ def start(clock, screen):
         handle_collision_with_environment(hero, generated_level.tile_array)
 
         # handle collision with enemy
-        handle_collision_with_enemy(hero, generated_level.enemy_array)
+        handle_collision_with_traps_and_enemies(hero, generated_level.trap_array, generated_level.crabby_array)
 
         # handle collision with coin
         handle_collision_with_coin(hero, generated_level)
 
+        # update hero img
         hero.img_clock = hero.img_clock + 1
         if (hero.img_clock / 10).is_integer():
             hero.img_index = (hero.img_index + 1) % len(hero.img_list)
         hero.img = hero.img_list[hero.img_index]
+
+        for crabby in generated_level.crabby_array:
+            if (crabby.attack_clock / 1000).is_integer():
+                crabby.change_state(CharacterState.ATTACK)
+                crabby.attack_clock = 0
+
+            if crabby.attack_clock == 150 and crabby.state == CharacterState.ATTACK:
+                crabby.change_state(CharacterState.IDLE)
+
+            crabby.attack_clock = crabby.attack_clock + 1
+
+            crabby.img_clock = crabby.img_clock + 1
+
+            if (crabby.img_clock / 15).is_integer():
+                crabby.img_index = (crabby.img_index + 1) % len(crabby.img_list)
+            crabby.img = crabby.img_list[crabby.img_index]
 
         if hero.is_alive():
             generated_level.draw(hero, screen)

@@ -1,6 +1,6 @@
 import pygame
 
-from models.HeroState import HeroState
+from models.CharacterState import CharacterState
 
 
 def set_indeed_moved_x(self, new_x):
@@ -12,22 +12,22 @@ def handle_movement(hero):
 
     if keys_pressed[pygame.K_UP] and hero.allowed_to_jump():
         hero.jump_state = hero.init_jumpstate * -1
-        hero.change_state(HeroState.JUMP)
+        hero.change_state(CharacterState.JUMP)
     if keys_pressed[pygame.K_DOWN]:
         hero.next_y = hero.y + hero.velocity
     if keys_pressed[pygame.K_RIGHT]:
         hero.line_of_sight = 1
         hero.next_x = hero.x + hero.velocity
-        hero.change_state(HeroState.RUN)
+        hero.change_state(CharacterState.RUN)
     if keys_pressed[pygame.K_LEFT]:
         hero.line_of_sight = -1
         hero.next_x = hero.x - hero.velocity
-        hero.change_state(HeroState.RUN)
+        hero.change_state(CharacterState.RUN)
     if keys_pressed[pygame.K_d] and hero.allowed_to_dash():
         hero.dash_state = 0
 
     if not keys_pressed[pygame.K_RIGHT] and not keys_pressed[pygame.K_LEFT] and not hero.is_dashing() and not hero.is_jumping():
-        hero.change_state(HeroState.IDLE)
+        hero.change_state(CharacterState.IDLE)
 
 
 def handle_jump(hero):

@@ -1,22 +1,32 @@
 import pygame
 
 from controllers.MovementController import set_indeed_moved_x
-from models.HeroState import HeroState
+from models.CharacterState import CharacterState
 
 
-def handle_collision_with_enemy(hero, enemy_array):
+def handle_collision_with_traps_and_enemies(hero, trap_array, crabby_array):
     if hero.is_damaged():
         if hero.dash_state == 1:
-            hero.change_state(HeroState.IDLE)
+            hero.change_state(CharacterState.IDLE)
         hero.damage_state = hero.damage_state - 1
-        hero.change_state(HeroState.DAMAGED)
+        hero.change_state(CharacterState.DAMAGED)
     else:
-        for rect in enemy_array:
+        for enemy in trap_array:
+            rect = enemy[0]
             if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(
                     rect) and not hero.is_dashing() and not hero.is_damaged():
-                hero.health -= 10  # todo set value enemy
+                hero.health -= 10
                 hero.damage_state = 60
-                hero.change_state(HeroState.DAMAGED)
+                hero.change_state(CharacterState.DAMAGED)
+
+        for crabby in crabby_array:
+            crabby_rect = pygame.Rect(crabby.x, crabby.y, crabby.width, crabby.height)
+            if crabby.state == CharacterState.ATTACK:
+                crabby_rect = pygame.Rect(crabby.x + 15, crabby.y, crabby.width - 15, crabby.height)
+            if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(crabby_rect) and not hero.is_dashing() and not hero.is_damaged():
+                hero.health -= crabby.attack_strength
+                hero.damage_state = 60
+                hero.change_state(CharacterState.DAMAGED)
 
 
 def handle_collision_with_coin(hero, generated_level):
@@ -27,7 +37,6 @@ def handle_collision_with_coin(hero, generated_level):
 
 
 def handle_collision_with_environment(hero, tile_array):
-
     next_hero_rect = pygame.Rect(hero.next_x, hero.next_y, hero.width, hero.height)
 
     for tile in tile_array:

@@ -1,14 +1,14 @@
 import pygame
 
-from models.HeroState import HeroState
+from models.Character import Character
 
 
-class Hero:
+class Hero(Character):
 
     def __init__(self):
+        super().__init__()
         self.x = 300
         self.y = 300
-        self.velocity = 2
         self.width = 64
         self.height = 64
 
@@ -21,30 +21,15 @@ class Hero:
         self.dash_speed = 20
         self.last_dash = 0
 
-        self.line_of_sight = 1
-
         self.grounded = False
         self.next_y = 300
         self.next_x = 300
         self.indeed_moved_x = 0
-        self.collision_x = False
-        self.collision_y = False
 
         self.health = 100
         self.damage_state = 0
 
         self.highscore = 0
-
-        self.img = None
-        self.img_clock = 0
-        self.img_index = 0
-        self.img_list = []
-        self.state = HeroState.IDLE
-
-        self.idle_img_list = []
-        self.run_img_list = []
-        self.jump_img_list = []
-        self.damaged_img_list = []
 
 
     def is_damaged(self):
@@ -75,16 +60,3 @@ class Hero:
     def is_alive(self):
         if self.health > 0:
             return True
-
-    def change_state(self, new_state):
-        if self.state != new_state:
-            self.state = new_state
-            if self.state == HeroState.RUN:
-                self.img_list = self.run_img_list
-            elif self.state == HeroState.IDLE:
-                self.img_list = self.idle_img_list
-            elif self.state == HeroState.JUMP:
-                self.img_list = self.jump_img_list
-            elif self.state == HeroState.DAMAGED:
-                self.img_list = self.damaged_img_list
-            self.img_index = 0
