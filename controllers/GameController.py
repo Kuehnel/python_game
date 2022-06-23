@@ -4,6 +4,7 @@ import pygame
 
 from controllers.CollisionController import handle_collision_with_environment, handle_collision_with_traps_and_enemies, \
     handle_collision_with_coin
+from controllers.LevelController import generate_level
 from controllers.MovementController import handle_movement, handle_jump, handle_dash
 from models.CharacterState import CharacterState
 from models.Spritesheet import Spritesheet
@@ -49,7 +50,7 @@ def start(clock, screen):
     hero.img_list = hero.idle_img_list
 
     # generate level using the tile map
-    generated_level.generate_level()
+    generate_level(generated_level)
 
     # game loop
     go = True
