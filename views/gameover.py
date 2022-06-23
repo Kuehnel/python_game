@@ -2,7 +2,7 @@ import os
 import sys
 import pygame
 
-from controllers import HelperController
+from controllers.HelperController import draw_text
 from views import menu
 
 
@@ -13,7 +13,7 @@ def show(clock, screen, hero):
 
         screen.fill((0, 0, 0))
 
-        helper.draw_text(screen, f"Your Highscore: {hero.highscore}", 100, 100)
+        draw_text(screen, f"Your Highscore: {hero.highscore}", 100, 100)
 
         mx, my = pygame.mouse.get_pos()
 

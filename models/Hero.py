@@ -8,9 +8,9 @@ class Hero:
     def __init__(self):
         self.x = 300
         self.y = 300
-        self.velocity = 5
-        self.width = 32
-        self.height = 32
+        self.velocity = 2
+        self.width = 64
+        self.height = 64
 
         self.jump_state = -16
         self.init_jumpstate = -16
@@ -24,8 +24,8 @@ class Hero:
         self.line_of_sight = 1
 
         self.grounded = False
-        self.next_y = 0
-        self.next_x = 0
+        self.next_y = 300
+        self.next_x = 300
         self.indeed_moved_x = 0
         self.collision_x = False
         self.collision_y = False
@@ -68,7 +68,7 @@ class Hero:
 
     def allowed_to_jump(self):
         now_in_ms = pygame.time.get_ticks()
-        if (now_in_ms - self.last_jump) > 750 and not self.is_jumping() and self.grounded:
+        if (now_in_ms - self.last_jump) > 750 and not self.is_jumping():
             self.last_jump = now_in_ms
             return True
 

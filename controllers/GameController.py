@@ -24,26 +24,26 @@ def start(clock, screen):
     # TODO load images
     hero_idle_img = pygame.image.load(os.path.join('sprites/hero', 'hero_idle.png')).convert_alpha()
     hero_idle_sheet = Spritesheet(hero_idle_img)
-    hero.idle_img_list = [hero_idle_sheet.get_image(0, 32, 32, 1), hero_idle_sheet.get_image(1, 32, 32, 1),
-                          hero_idle_sheet.get_image(2, 32, 32, 1), hero_idle_sheet.get_image(3, 32, 32, 1)]
+    hero.idle_img_list = [hero_idle_sheet.get_image(0, 32, 32, 2), hero_idle_sheet.get_image(1, 32, 32, 2),
+                          hero_idle_sheet.get_image(2, 32, 32, 2), hero_idle_sheet.get_image(3, 32, 32, 2)]
 
     hero_run_img = pygame.image.load(os.path.join('sprites/hero', 'hero_run.png')).convert_alpha()
     hero_run_sheet = Spritesheet(hero_run_img)
-    hero.run_img_list = [hero_run_sheet.get_image(0, 32, 32, 1), hero_run_sheet.get_image(1, 32, 32, 1),
-                         hero_run_sheet.get_image(2, 32, 32, 1), hero_run_sheet.get_image(3, 32, 32, 1),
-                         hero_run_sheet.get_image(4, 32, 32, 1), hero_run_sheet.get_image(5, 32, 32, 1)]
+    hero.run_img_list = [hero_run_sheet.get_image(0, 32, 32, 2), hero_run_sheet.get_image(1, 32, 32, 2),
+                         hero_run_sheet.get_image(2, 32, 32, 2), hero_run_sheet.get_image(3, 32, 32, 2),
+                         hero_run_sheet.get_image(4, 32, 32, 2), hero_run_sheet.get_image(5, 32, 32, 2)]
 
     hero_jump_img = pygame.image.load(os.path.join('sprites/hero', 'hero_jump.png')).convert_alpha()
     hero_jump_sheet = Spritesheet(hero_jump_img)
-    hero.jump_img_list = [hero_jump_sheet.get_image(0, 32, 32, 1), hero_jump_sheet.get_image(1, 32, 32, 1),
-                          hero_jump_sheet.get_image(2, 32, 32, 1), hero_jump_sheet.get_image(3, 32, 32, 1),
-                          hero_jump_sheet.get_image(4, 32, 32, 1), hero_jump_sheet.get_image(5, 32, 32, 1),
-                          hero_jump_sheet.get_image(6, 32, 32, 1), hero_jump_sheet.get_image(9, 32, 32, 1)]
+    hero.jump_img_list = [hero_jump_sheet.get_image(0, 32, 32, 2), hero_jump_sheet.get_image(1, 32, 32, 2),
+                          hero_jump_sheet.get_image(2, 32, 32, 2), hero_jump_sheet.get_image(3, 32, 32, 2),
+                          hero_jump_sheet.get_image(4, 32, 32, 2), hero_jump_sheet.get_image(5, 32, 32, 2),
+                          hero_jump_sheet.get_image(6, 32, 32, 2), hero_jump_sheet.get_image(9, 32, 32, 2)]
 
     hero_damaged_img = pygame.image.load(os.path.join('sprites/hero', 'hero_damaged.png')).convert_alpha()
     hero_damaged_sheet = Spritesheet(hero_damaged_img)
-    hero.damaged_img_list = [hero_damaged_sheet.get_image(0, 32, 32, 1), hero_damaged_sheet.get_image(1, 32, 32, 1),
-                             hero_damaged_sheet.get_image(2, 32, 32, 1), hero_damaged_sheet.get_image(3, 32, 32, 1)]
+    hero.damaged_img_list = [hero_damaged_sheet.get_image(0, 32, 32, 2), hero_damaged_sheet.get_image(1, 32, 32, 2),
+                             hero_damaged_sheet.get_image(2, 32, 32, 2), hero_damaged_sheet.get_image(3, 32, 32, 2)]
 
     hero.img_list = hero.idle_img_list
 
@@ -74,7 +74,7 @@ def start(clock, screen):
         handle_dash(hero)
 
         # handle collision with environment
-        handle_collision_with_environment(hero, generated_level.rect_array)
+        handle_collision_with_environment(hero, generated_level.tile_array)
 
         # handle collision with enemy
         handle_collision_with_enemy(hero, generated_level.enemy_array)
@@ -83,7 +83,7 @@ def start(clock, screen):
         handle_collision_with_coin(hero, generated_level)
 
         hero.img_clock = hero.img_clock + 1
-        if (hero.img_clock / 5).is_integer():
+        if (hero.img_clock / 10).is_integer():
             hero.img_index = (hero.img_index + 1) % len(hero.img_list)
         hero.img = hero.img_list[hero.img_index]
 
@@ -93,4 +93,4 @@ def start(clock, screen):
             gameover.show(clock, screen, hero)
             break
 
-        clock.tick(60)
+        clock.tick(120)

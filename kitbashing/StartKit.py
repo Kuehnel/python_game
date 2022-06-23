@@ -1,19 +1,23 @@
 class Start_kit:
     # 0 = empty
-    # 1 = platform
-    # 2 = saw
-    # 3 = wall left
-    # 4 = wall right
+    # 1 = floor
+    # 2 = spikes
+    # 3 = wall
+    # 4 = ?
     # 5 = ceiling
+    # 7 = platform
+    # 8 = goal
     # 6 = coin
-    # 9 = connector
+    # 9 = block
 
     def __init__(self):
-        self.tile_map = [[5, 5, 5, 5, 5, 5],
-                         [3, 0, 0, 0, 0, 4],
-                         [3, 0, 0, 0, 0, 4],
-                         [3, 0, 0, 0, 0, 4],
-                         [3, 0, 0, 0, 0, 9],
+        self.tile_map = [[0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 6],
+                         [0, 0, 0, 0, 0, 6],
+                         [0, 0, 0, 0, 9, 0],
+                         [0, 7, 0, 9, 9, 9],
                          [1, 1, 1, 1, 1, 1],
                          ]
         self.neutral_list = [0, 0, 0, 0, 0, 0]

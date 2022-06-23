@@ -35,7 +35,7 @@ def handle_jump(hero):
         n = 1
         if hero.jump_state < 0:
             n = -1
-        hero.next_y -= (hero.jump_state ** 2) * 0.17 * n  # quadratische Formel zur Sprungberechnung
+        hero.next_y -= 15 * n
         hero.jump_state -= 1
         hero.grounded = False
 
