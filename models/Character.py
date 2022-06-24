@@ -11,6 +11,7 @@ class Character:
         self.velocity = 2
         self.width = 0
         self.height = 0
+        self.collision_tolerance = 15
 
         self.line_of_sight = 1
 

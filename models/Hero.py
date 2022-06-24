@@ -11,6 +11,7 @@ class Hero(Character):
         self.y = 300
         self.width = 64
         self.height = 64
+        self.collision_tolerance = 9
 
         self.jump_state = -16
         self.init_jumpstate = -16

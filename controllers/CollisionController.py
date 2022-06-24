@@ -22,7 +22,7 @@ def handle_collision_with_traps_and_enemies(hero, trap_array, crabby_array):
         for crabby in crabby_array:
             crabby_rect = pygame.Rect(crabby.x, crabby.y, crabby.width, crabby.height)
             if crabby.state == CharacterState.ATTACK:
-                crabby_rect = pygame.Rect(crabby.x + 15, crabby.y, crabby.width - 15, crabby.height)
+                crabby_rect = pygame.Rect(crabby.x + crabby.collision_tolerance, crabby.y, crabby.width - crabby.collision_tolerance, crabby.height)
             if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(crabby_rect) and not hero.is_dashing() and not hero.is_damaged():
                 hero.health -= crabby.attack_strength
                 hero.damage_state = 60
@@ -37,7 +37,7 @@ def handle_collision_with_coin(hero, generated_level):
 
 
 def handle_collision_with_environment(hero, tile_array):
-    next_hero_rect = pygame.Rect(hero.next_x, hero.next_y, hero.width, hero.height)
+    next_hero_rect = pygame.Rect(hero.next_x + hero.collision_tolerance, hero.next_y, hero.width - hero.collision_tolerance * 2, hero.height)
 
     for tile in tile_array:
         rect = tile[0]
@@ -45,7 +45,7 @@ def handle_collision_with_environment(hero, tile_array):
 
             hero.grounded = False
 
-            next_hero_rect_only_y = pygame.Rect(hero.x, hero.next_y, hero.width, hero.height)
+            next_hero_rect_only_y = pygame.Rect(hero.x + hero.collision_tolerance, hero.next_y, hero.width - hero.collision_tolerance * 2, hero.height)
             if next_hero_rect_only_y.colliderect(rect):
                 # collision bottom
                 if hero.y < hero.next_y:
@@ -54,21 +54,18 @@ def handle_collision_with_environment(hero, tile_array):
                 # collision top
                 if hero.y > hero.next_y:
                     hero.next_y = rect.bottom
-                    print("col top")
                     if hero.is_jumping():
                         hero.jump_state = hero.init_jumpstate
 
-            next_hero_rect_only_x = pygame.Rect(hero.next_x, hero.y, hero.width, hero.height)
+            next_hero_rect_only_x = pygame.Rect(hero.next_x + hero.collision_tolerance, hero.y, hero.width - hero.collision_tolerance * 2, hero.height)
             if next_hero_rect_only_x.colliderect(rect):
 
                 # collision left
                 if hero.x > hero.next_x:
                     hero.next_x = hero.x
-                    print("col left")
                 # collision right
                 if hero.x < hero.next_x:
                     hero.next_x = hero.x
-                    print("col right")
 
     set_indeed_moved_x(hero, hero.next_x)
     hero.x = hero.next_x
