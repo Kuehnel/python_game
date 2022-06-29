@@ -1,6 +1,9 @@
+import os
+
 import pygame
 
 from models.Character import Character
+from models.Spritesheet import Spritesheet
 
 
 class Hero(Character):
@@ -32,6 +35,10 @@ class Hero(Character):
 
         self.highscore = 0
 
+        self.load_images()
+
+        self.img_list = self.idle_img_list
+
 
     def is_damaged(self):
         if self.damage_state > 0:
@@ -61,3 +68,24 @@ class Hero(Character):
     def is_alive(self):
         if self.health > 0:
             return True
+
+    def load_images(self):
+        hero_idle_sheet = Spritesheet(pygame.image.load(os.path.join('sprites/hero', 'hero_idle.png')).convert_alpha())
+        self.idle_img_list = [hero_idle_sheet.get_image(0, 32, 32, 2), hero_idle_sheet.get_image(1, 32, 32, 2),
+                              hero_idle_sheet.get_image(2, 32, 32, 2), hero_idle_sheet.get_image(3, 32, 32, 2)]
+
+        hero_run_sheet = Spritesheet(pygame.image.load(os.path.join('sprites/hero', 'hero_run.png')).convert_alpha())
+        self.run_img_list = [hero_run_sheet.get_image(0, 32, 32, 2), hero_run_sheet.get_image(1, 32, 32, 2),
+                             hero_run_sheet.get_image(2, 32, 32, 2), hero_run_sheet.get_image(3, 32, 32, 2),
+                             hero_run_sheet.get_image(4, 32, 32, 2), hero_run_sheet.get_image(5, 32, 32, 2)]
+
+        hero_jump_sheet = Spritesheet(pygame.image.load(os.path.join('sprites/hero', 'hero_jump.png')).convert_alpha())
+        self.jump_img_list = [hero_jump_sheet.get_image(0, 32, 32, 2), hero_jump_sheet.get_image(1, 32, 32, 2),
+                              hero_jump_sheet.get_image(2, 32, 32, 2), hero_jump_sheet.get_image(3, 32, 32, 2),
+                              hero_jump_sheet.get_image(4, 32, 32, 2), hero_jump_sheet.get_image(5, 32, 32, 2),
+                              hero_jump_sheet.get_image(6, 32, 32, 2), hero_jump_sheet.get_image(9, 32, 32, 2)]
+
+        hero_damaged_sheet = Spritesheet(
+            pygame.image.load(os.path.join('sprites/hero', 'hero_damaged.png')).convert_alpha())
+        self.damaged_img_list = [hero_damaged_sheet.get_image(0, 32, 32, 2), hero_damaged_sheet.get_image(1, 32, 32, 2),
+                                 hero_damaged_sheet.get_image(2, 32, 32, 2), hero_damaged_sheet.get_image(3, 32, 32, 2)]

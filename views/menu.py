@@ -4,6 +4,7 @@ from controllers.GameController import start
 import pygame
 import sys
 
+from models.Hero import Hero
 from views import highscore
 
 
@@ -42,7 +43,7 @@ def show(clock, screen):
         # event when button clicked
         if click:
             if btn_play.collidepoint((mx, my)):
-                start(clock, screen)
+                start(clock, screen, Hero())
             if btn_highscore.collidepoint((mx, my)):
                 highscore.show(clock, screen)
             if btn_quit.collidepoint((mx, my)):

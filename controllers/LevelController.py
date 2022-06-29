@@ -4,7 +4,7 @@ from kitbashing import StartKit, EndKit, HallwayKit
 from models.Crabby import Crabby
 
 
-def generate_level(level):
+def generate_random_level(level):
     start = StartKit.Start_kit()
     end = EndKit.End_kit()
 
