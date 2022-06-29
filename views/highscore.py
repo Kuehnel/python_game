@@ -2,21 +2,25 @@ import os
 import sys
 import pygame
 
-from controllers.DatabaseController import insert_highscore
+from controllers.DatabaseController import get_highscore_list
 from controllers.HelperController import draw_text
 from views import menu
 
 
-def show(clock, screen, hero):
+def show(clock, screen):
     click = False
-
-    insert_highscore(hero.highscore)
 
     while True:
 
         screen.fill((0, 0, 0))
 
-        draw_text(screen, f"Your Highscore: {hero.highscore}", 100, 100)
+        draw_text(screen, f"test", 100, 0)
+
+        data = get_highscore_list()
+
+        for idx, row in enumerate(data):
+            draw_text(screen, row[0], 100, (idx + 1) * 100)
+            draw_text(screen, row[1], 400, (idx + 1) * 100)
 
         mx, my = pygame.mouse.get_pos()
 

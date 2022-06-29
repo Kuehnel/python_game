@@ -2,7 +2,6 @@ import os
 
 import pygame
 
-from models.CharacterState import CharacterState
 from models.Enemy import Enemy
 
 
