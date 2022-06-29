@@ -3,8 +3,6 @@ import os
 import pygame
 
 from controllers.HelperController import draw_text
-from kitbashing import StartKit, EndKit, HallwayKit
-from models.Crabby import Crabby
 
 
 class Level:
@@ -40,6 +38,8 @@ class Level:
         self.wall_img = pygame.image.load(os.path.join('sprites/island', 'wall.png')).convert_alpha()
         self.goal_img = pygame.image.load(os.path.join('sprites/island', 'goal.png')).convert_alpha()
 
+    def merge_tile_maps(self, next_tile_map):
+        self.tile_map = [a + b for a, b in zip(self.tile_map, next_tile_map)]
 
     def draw(self, hero, screen):
         # draw background
