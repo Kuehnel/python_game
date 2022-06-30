@@ -14,11 +14,11 @@ def show(clock, screen):
 
         Background().draw(screen)
 
-        load_and_draw_image(screen, 'sprites/menu/highscore', 'bg_board.png', 548, 40, 5.5)
+        load_and_draw_image(screen, 'sprites/menu/boards', 'bg_board.png', 548, 40, 5.5)
 
-        load_and_draw_image(screen, 'sprites/menu/highscore', 'board.png', 580, 70, 5)
+        load_and_draw_image(screen, 'sprites/menu/boards', 'board.png', 580, 70, 5)
 
-        load_and_draw_image(screen, 'sprites/menu/highscore', 'highscore_banner.png', 548, 0, 5.5)
+        load_and_draw_image(screen, 'sprites/menu/banner', 'highscore_banner.png', 548, 0, 5.5)
 
         data = get_highscore_list()
 
