@@ -4,7 +4,7 @@ import pygame
 from controllers.CollisionController import handle_collision_with_environment, handle_collision_with_traps_and_enemies, \
     handle_collision_with_coin, reached_level_goal
 from controllers.LevelController import generate_random_level
-from controllers.MovementController import handle_movement, handle_jump, move_crabby
+from controllers.MovementController import handle_movement, handle_jump, move_crabby, move_seashell
 from models.Background import Background
 from models.CharacterState import CharacterState
 from models.Level import Level
@@ -42,7 +42,7 @@ def start(clock, screen, hero):
         handle_collision_with_environment(hero, level.tile_array)
 
         # handle collision with enemy
-        handle_collision_with_traps_and_enemies(hero, level.trap_array, level.crabby_array)
+        handle_collision_with_traps_and_enemies(hero, level.trap_array, level.crabby_array, level.seashell_array)
 
         # handle collision with coin
         handle_collision_with_coin(hero, level)
@@ -56,6 +56,10 @@ def start(clock, screen, hero):
         # update crabby
         for crabby in level.crabby_array:
             move_crabby(crabby)
+
+        # update seashell
+        for seashell in level.seashell_array:
+            move_seashell(seashell)
 
         # draw
         if hero.is_alive():

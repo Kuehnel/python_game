@@ -80,3 +80,27 @@ def move_crabby(crabby):
     if (crabby.img_clock / 15).is_integer():
         crabby.img_index = (crabby.img_index + 1) % len(crabby.img_list)
     crabby.img = crabby.img_list[crabby.img_index]
+
+
+def move_seashell(seashell):
+    if seashell.state == CharacterState.IDLE:
+        seashell.idle_clock = seashell.idle_clock + 1
+        if seashell.idle_clock == seashell.idle_time:
+            seashell.change_state(CharacterState.ATTACK)
+            seashell.idle_clock = 0
+    if seashell.state == CharacterState.ATTACK:
+        if seashell.attack_clock == 0:
+            seashell.bullet = pygame.Rect(seashell.x + seashell.width, seashell.y + seashell.height, 32, 32)
+        seashell.attack_clock = seashell.attack_clock + 1
+        if seashell.bullet:
+            seashell.bullet.x = seashell.bullet.x - 10
+        if seashell.attack_clock == seashell.attack_time:
+            seashell.bullet = None
+            seashell.attack_clock = 0
+            seashell.change_state(CharacterState.IDLE)
+
+    seashell.img_clock = seashell.img_clock + 1
+
+    if (seashell.img_clock / 15).is_integer():
+        seashell.img_index = (seashell.img_index + 1) % len(seashell.img_list)
+    seashell.img = seashell.img_list[seashell.img_index]

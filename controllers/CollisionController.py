@@ -9,11 +9,20 @@ def reached_level_goal(hero, level):
         return True
 
 
-def handle_collision_with_traps_and_enemies(hero, trap_array, crabby_array):
+def handle_collision_with_traps_and_enemies(hero, trap_array, crabby_array, seashell_array):
     if hero.is_damaged():
         hero.damage_state = hero.damage_state - 1
         hero.change_state(CharacterState.DAMAGED)
     else:
+        for seashell in seashell_array:
+            if seashell.bullet:
+                rect = seashell.bullet
+                if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(
+                        rect) and not hero.is_damaged():
+                    hero.health -= seashell.attack_strength
+                    hero.damage_state = 60
+                    hero.change_state(CharacterState.DAMAGED)
+
         for enemy in trap_array:
             rect = enemy[0]
             if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(

@@ -3,6 +3,7 @@ import os
 import pygame
 
 from controllers.HelperController import draw_text, load_image_scaled
+from models.CharacterState import CharacterState
 
 
 class Level:
@@ -19,6 +20,7 @@ class Level:
 
         self.trap_array = []
         self.crabby_array = []
+        self.seashell_array = []
         self.coin_array = []
 
         self.goal_rect = None
@@ -63,6 +65,12 @@ class Level:
         for crabby in self.crabby_array:
             crabby.x = crabby.x - hero.indeed_moved_x
             screen.blit(crabby.img, (crabby.x, crabby.y))
+
+        for seashell in self.seashell_array:
+            if seashell.bullet:
+                screen.blit(seashell.pearl_img, (seashell.bullet.x, seashell.bullet.y))
+            seashell.x = seashell.x - hero.indeed_moved_x
+            screen.blit(seashell.img, (seashell.x, seashell.y))
 
         for tmp_rect in self.coin_array:
             tmp_rect.x = tmp_rect.x - hero.indeed_moved_x

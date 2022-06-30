@@ -4,6 +4,7 @@ import pygame
 
 from kitbashing.KitCollection import KitCollection
 from models.Crabby import Crabby
+from models.Seashell import Seashell
 
 
 def generate_random_level(level):
@@ -56,10 +57,9 @@ def tile_map_to_rect_array(self):
                 self.crabby_array.append(
                     Crabby(self.pointer_x - self.tile_size_small, self.pointer_y + self.tile_size_small + 7))
             if column == 5:
-                # add wall ceiling
-                self.tile_array.append(
-                    [pygame.Rect(self.pointer_x, self.pointer_y + self.tile_size - self.tile_size_small, self.tile_size,
-                                 self.tile_size_small), 5])
+                # add seashell
+                self.seashell_array.append(
+                    Seashell(self.pointer_x, self.pointer_y + 23))
             if column == 6:
                 # add coin
                 self.coin_array.append(
