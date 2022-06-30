@@ -23,6 +23,7 @@ class Level:
 
         self.goal_rect = None
 
+        self.lifebar_img = load_image_scaled('sprites/hero/hud', 'lifebar.png', 3).convert_alpha()
         self.platform_img = pygame.image.load(os.path.join('sprites/island', 'platform.png')).convert_alpha()
         self.coin_img = pygame.image.load(os.path.join('sprites/collectables', 'coin.png')).convert_alpha()
         self.spikes_img = pygame.image.load(os.path.join('sprites/traps', 'spikes.png')).convert_alpha()
@@ -80,10 +81,11 @@ class Level:
             screen.blit(img, (hero.x, hero.y))
 
         # draw health
-        draw_text(screen, f"Life: {hero.health}", 10, 10)
+        screen.blit(self.lifebar_img, (20, 10))
+        pygame.draw.rect(screen, (255, 0, 255), (73, 52, hero.health, 2 * 3))
 
         # draw highscore
-        draw_text(screen, f"Highscore: {hero.highscore}", 300, 10)
+        draw_text(screen, f"{hero.highscore}", 1600, 30)
 
         # update display
         pygame.display.update()

@@ -14,7 +14,7 @@ def show(clock, screen):
 
         Background().draw(screen)
 
-        draw_text(screen, f"test", 100, 0)
+        draw_text(screen, f"Hall of Fame", 100, 0)
 
         data = get_highscore_list()
 

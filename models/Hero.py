@@ -30,7 +30,7 @@ class Hero(Character):
         self.next_x = 300
         self.indeed_moved_x = 0
 
-        self.health = 100
+        self.health = 225
         self.damage_state = 0
 
         self.highscore = 0
