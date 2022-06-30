@@ -5,6 +5,7 @@ from controllers.CollisionController import handle_collision_with_environment, h
     handle_collision_with_coin, reached_level_goal
 from controllers.LevelController import generate_random_level
 from controllers.MovementController import handle_movement, handle_jump, handle_dash
+from models.Background import Background
 from models.CharacterState import CharacterState
 from models.Level import Level
 from views import gameover
@@ -16,6 +17,7 @@ gravity = 5
 def start(clock, screen, hero):
 
     level = Level()
+    bg = Background()
 
     # generate level using the tile map
     generate_random_level(level)
@@ -71,6 +73,7 @@ def start(clock, screen, hero):
             crabby.img = crabby.img_list[crabby.img_index]
 
         if hero.is_alive():
+            bg.draw(screen)
             level.draw(hero, screen)
         else:
             gameover.show(clock, screen, hero)

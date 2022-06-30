@@ -2,7 +2,8 @@ from controllers.GameController import start
 import pygame
 import sys
 
-from controllers.HelperController import draw_image
+from controllers.HelperController import load_and_draw_image
+from models.Background import Background
 from models.Hero import Hero
 from views import highscore
 
@@ -12,7 +13,7 @@ def show(clock, screen):
 
     while True:
 
-        screen.fill((0, 0, 0))
+        Background().draw(screen)
 
         # get mouse position
         mx, my = pygame.mouse.get_pos()
@@ -20,13 +21,13 @@ def show(clock, screen):
         button_position_x = 756
 
         # load and render play button
-        btn_play = draw_image(screen, 'sprites/menu/buttons', 'play.png', button_position_x, 400)
+        btn_play = load_and_draw_image(screen, 'sprites/menu/buttons', 'play.png', button_position_x, 400)
 
         # load and render highscore button
-        btn_highscore = draw_image(screen, 'sprites/menu/buttons', 'highscore.png', button_position_x, 550)
+        btn_highscore = load_and_draw_image(screen, 'sprites/menu/buttons', 'highscore.png', button_position_x, 550)
 
         # load and render quit button
-        btn_quit = draw_image(screen, 'sprites/menu/buttons', 'quit.png', button_position_x, 700)
+        btn_quit = load_and_draw_image(screen, 'sprites/menu/buttons', 'quit.png', button_position_x, 700)
 
         # event when button clicked
         if click:

@@ -2,7 +2,7 @@ import os
 
 import pygame
 
-from controllers.HelperController import draw_text
+from controllers.HelperController import draw_text, load_image_scaled
 
 
 class Level:
@@ -15,20 +15,14 @@ class Level:
         self.tile_size_small = 32
 
         self.tile_map = []
-        self.connector_index_r = -1
-        self.neutral_list = []
-
         self.tile_array = []
 
         self.trap_array = []
-
         self.crabby_array = []
-
         self.coin_array = []
 
         self.goal_rect = None
 
-        self.bg_img = pygame.image.load(os.path.join('sprites/island/background', 'background.png')).convert_alpha()
         self.platform_img = pygame.image.load(os.path.join('sprites/island', 'platform.png')).convert_alpha()
         self.coin_img = pygame.image.load(os.path.join('sprites/collectables', 'coin.png')).convert_alpha()
         self.spikes_img = pygame.image.load(os.path.join('sprites/traps', 'spikes.png')).convert_alpha()
@@ -42,8 +36,6 @@ class Level:
         self.tile_map = [a + b for a, b in zip(self.tile_map, next_tile_map)]
 
     def draw(self, hero, screen):
-        # draw background
-        screen.blit(self.bg_img, (0, 0))
 
         for tile in self.tile_array:
             tmp_rect = tile[0]

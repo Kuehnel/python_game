@@ -2,7 +2,8 @@ import sys
 import pygame
 
 from controllers.DatabaseController import get_highscore_list
-from controllers.HelperController import draw_text, draw_image
+from controllers.HelperController import draw_text, load_and_draw_image
+from models.Background import Background
 from views import menu
 
 
@@ -11,7 +12,7 @@ def show(clock, screen):
 
     while True:
 
-        screen.fill((0, 0, 0))
+        Background().draw(screen)
 
         draw_text(screen, f"test", 100, 0)
 
@@ -24,7 +25,7 @@ def show(clock, screen):
         mx, my = pygame.mouse.get_pos()
 
         # load and render play button
-        btn_menu = draw_image(screen, 'sprites/menu/buttons', 'menu.png', 756, 750)
+        btn_menu = load_and_draw_image(screen, 'sprites/menu/buttons', 'menu.png', 756, 750)
 
         if btn_menu.collidepoint((mx, my)):
             if click:

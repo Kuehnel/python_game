@@ -4,6 +4,7 @@ import pygame
 
 from controllers.DatabaseController import insert_highscore
 from controllers.HelperController import draw_text
+from models.Background import Background
 from views import menu
 
 
@@ -14,7 +15,7 @@ def show(clock, screen, hero):
 
     while True:
 
-        screen.fill((0, 0, 0))
+        Background().draw(screen)
 
         draw_text(screen, f"Your Highscore: {hero.highscore}", 100, 100)
 
