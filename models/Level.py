@@ -85,7 +85,7 @@ class Level:
         pygame.draw.rect(screen, (255, 0, 255), (73, 52, hero.health, 2 * 3))
 
         # draw highscore
-        draw_text(screen, f"{hero.highscore}", 1600, 30)
+        draw_text(screen, f"{hero.highscore}", 1600, 30, 20)
 
         # update display
         pygame.display.update()

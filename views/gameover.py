@@ -17,7 +17,7 @@ def show(clock, screen, hero):
 
         Background().draw(screen)
 
-        draw_text(screen, f"Your Highscore: {hero.highscore}", 100, 100)
+        draw_text(screen, f"Your Highscore: {hero.highscore}", 100, 100, 20)
 
         mx, my = pygame.mouse.get_pos()
 

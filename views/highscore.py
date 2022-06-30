@@ -14,18 +14,22 @@ def show(clock, screen):
 
         Background().draw(screen)
 
-        draw_text(screen, f"Hall of Fame", 100, 0)
+        load_and_draw_image(screen, 'sprites/menu/highscore', 'bg_board.png', 548, 40, 5.5)
+
+        load_and_draw_image(screen, 'sprites/menu/highscore', 'board.png', 580, 70, 5)
+
+        load_and_draw_image(screen, 'sprites/menu/highscore', 'highscore_banner.png', 548, 0, 5.5)
 
         data = get_highscore_list()
 
         for idx, row in enumerate(data):
-            draw_text(screen, row[0], 100, (idx + 1) * 100)
-            draw_text(screen, row[1], 400, (idx + 1) * 100)
+            draw_text(screen, row[0], 700, 170 + (idx + 1) * 40, 18)
+            draw_text(screen, row[1], 950, 170 + (idx + 1) * 40, 18)
 
         mx, my = pygame.mouse.get_pos()
 
-        # load and render play button
-        btn_menu = load_and_draw_image(screen, 'sprites/menu/buttons', 'menu.png', 756, 750)
+        # load and render menu button
+        btn_menu = load_and_draw_image(screen, 'sprites/menu/buttons', 'menu.png', 756, 750, 3)
 
         if btn_menu.collidepoint((mx, my)):
             if click:

@@ -21,13 +21,13 @@ def show(clock, screen):
         button_position_x = 756
 
         # load and render play button
-        btn_play = load_and_draw_image(screen, 'sprites/menu/buttons', 'play.png', button_position_x, 400)
+        btn_play = load_and_draw_image(screen, 'sprites/menu/buttons', 'play.png', button_position_x, 400, 3)
 
         # load and render highscore button
-        btn_highscore = load_and_draw_image(screen, 'sprites/menu/buttons', 'highscore.png', button_position_x, 550)
+        btn_highscore = load_and_draw_image(screen, 'sprites/menu/buttons', 'highscore.png', button_position_x, 550, 3)
 
         # load and render quit button
-        btn_quit = load_and_draw_image(screen, 'sprites/menu/buttons', 'quit.png', button_position_x, 700)
+        btn_quit = load_and_draw_image(screen, 'sprites/menu/buttons', 'quit.png', button_position_x, 700, 3)
 
         # event when button clicked
         if click:
