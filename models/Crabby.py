@@ -11,7 +11,7 @@ class Crabby(Enemy):
     def __init__(self, x, y):
         super().__init__(x, y)
 
-        self.attack_strength = 20
+        self.attack_strength = 40
 
         self.attack_time = random.randint(100, 500)
         self.attack_clock = 0

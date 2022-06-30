@@ -1,4 +1,5 @@
 import os
+import random
 
 import pygame
 
@@ -11,11 +12,25 @@ class Background:
         self.pointer_x = 0
         self.pointer_y = 0
 
+        self.palmtree_array = []
+
         self.bg_img = pygame.image.load(os.path.join('sprites/island/background', 'background.png')).convert_alpha()
         self.big_clouds_img = load_image_scaled('sprites/island/background', 'big_clouds.png', 4.1).convert_alpha()
 
-        self.big_clouds_position_x = 100
+        self.palmtree_img = pygame.transform.scale(
+            pygame.image.load(os.path.join('sprites/island/background/palmtree', '01.png')).convert_alpha(),
+            (64 * 5, 64 * 5))
 
-    def draw(self, screen):
+    def init_palmtree_array(self):
+        for i in range(3):
+            random_number = random.randint(10, 1790)
+            self.palmtree_array.append(pygame.Rect(random_number, 480, 64, 64))
+
+    def draw(self, screen, hero=None):
         screen.blit(self.bg_img, (0, 0))
         screen.blit(self.big_clouds_img, (0, 200))
+
+        if hero:
+            for palmtree in self.palmtree_array:
+                palmtree.x = palmtree.x - hero.indeed_moved_x
+                screen.blit(self.palmtree_img, (palmtree.x, palmtree.y))

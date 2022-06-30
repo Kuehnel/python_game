@@ -30,7 +30,6 @@ class Level:
         self.coin_img = pygame.image.load(os.path.join('sprites/collectables', 'coin.png')).convert_alpha()
         self.spikes_img = pygame.image.load(os.path.join('sprites/traps', 'spikes.png')).convert_alpha()
         self.floor_img = pygame.image.load(os.path.join('sprites/island', 'floor.png')).convert_alpha()
-        self.floor_left_img = pygame.image.load(os.path.join('sprites/island', 'floor_left.png')).convert_alpha()
         self.block_img = pygame.image.load(os.path.join('sprites/island', 'block.png')).convert_alpha()
         self.wall_img = pygame.image.load(os.path.join('sprites/island', 'wall.png')).convert_alpha()
         self.goal_img = pygame.image.load(os.path.join('sprites/island', 'goal.png')).convert_alpha()
@@ -93,7 +92,7 @@ class Level:
         pygame.draw.rect(screen, (255, 0, 255), (73, 52, hero.health, 2 * 3))
 
         # draw highscore
-        draw_text(screen, f"{hero.highscore}", 1600, 30, 20)
+        draw_text(screen, f"HIGHSCORE: {hero.highscore}", 1400, 50, 20)
 
         # update display
         pygame.display.update()

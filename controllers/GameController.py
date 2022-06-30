@@ -18,6 +18,7 @@ def start(clock, screen, hero):
 
     level = Level()
     bg = Background()
+    bg.init_palmtree_array()
 
     # generate level using the tile map
     generate_random_level(level)
@@ -63,7 +64,7 @@ def start(clock, screen, hero):
 
         # draw
         if hero.is_alive():
-            bg.draw(screen)
+            bg.draw(screen, hero)
             level.draw(hero, screen)
         else:
             gameover.show(clock, screen, hero)

@@ -10,7 +10,7 @@ class Seashell(Enemy):
     def __init__(self, x, y):
         super().__init__(x, y)
 
-        self.attack_strength = 40
+        self.attack_strength = 80
 
         self.attack_time = 70
         self.attack_clock = 0
