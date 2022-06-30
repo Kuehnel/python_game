@@ -3,14 +3,14 @@ import pygame
 from models.CharacterState import CharacterState
 
 
-def set_indeed_moved_x(self, new_x):
-    self.indeed_moved_x = new_x - self.x
+def set_indeed_moved_x(hero, new_x):
+    hero.indeed_moved_x = new_x - hero.x
 
 
 def handle_movement(hero):
     keys_pressed = pygame.key.get_pressed()
 
-    if keys_pressed[pygame.K_UP] and hero.allowed_to_jump():
+    if keys_pressed[pygame.K_SPACE] and hero.allowed_to_jump():
         hero.jump_state = hero.init_jumpstate * -1
         hero.change_state(CharacterState.JUMP)
     if keys_pressed[pygame.K_DOWN]:
@@ -35,7 +35,7 @@ def handle_jump(hero):
         n = 1
         if hero.jump_state < 0:
             n = -1
-        hero.next_y -= 15 * n
+        hero.next_y -= (hero.jump_state ** 2) * 0.17 * n
         hero.jump_state -= 1
         hero.grounded = False
 

@@ -46,12 +46,12 @@ class Hero(Character):
 
     def allowed_to_jump(self):
         now_in_ms = pygame.time.get_ticks()
-        if (now_in_ms - self.last_jump) > 750 and not self.is_jumping():
+        if (now_in_ms - self.last_jump) > 650 and not self.is_jumping():
             self.last_jump = now_in_ms
             return True
 
     def is_alive(self):
-        if self.health > 0:
+        if self.health > 0 and self.y < 900:
             return True
 
     def load_images(self):

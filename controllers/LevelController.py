@@ -61,14 +61,14 @@ def tile_map_to_rect_array(self):
             if column == 6:
                 # add coin
                 self.coin_array.append(
-                    pygame.Rect(self.pointer_x, self.pointer_y, self.tile_size_small, self.tile_size_small))
+                    pygame.Rect(self.pointer_x + self.tile_size_small - 8, self.pointer_y + self.tile_size_small, self.tile_size_small, self.tile_size_small))
             if column == 7:
                 # add platform
                 self.tile_array.append(
                     [pygame.Rect(self.pointer_x, self.pointer_y, self.tile_size, self.tile_size_small), 7])
             if column == 8:
                 # add goal
-                self.goal_rect = pygame.Rect(self.pointer_x + self.tile_size_small, self.pointer_y,
+                self.goal_rect = pygame.Rect(self.pointer_x - self.tile_size, self.pointer_y,
                                              self.tile_size_small, self.tile_size)
             if column == 9:
                 # add block
