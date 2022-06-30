@@ -11,15 +11,13 @@ def reached_level_goal(hero, level):
 
 def handle_collision_with_traps_and_enemies(hero, trap_array, crabby_array):
     if hero.is_damaged():
-        if hero.dash_state == 1:
-            hero.change_state(CharacterState.IDLE)
         hero.damage_state = hero.damage_state - 1
         hero.change_state(CharacterState.DAMAGED)
     else:
         for enemy in trap_array:
             rect = enemy[0]
             if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(
-                    rect) and not hero.is_dashing() and not hero.is_damaged():
+                    rect) and not hero.is_damaged():
                 hero.health -= 10
                 hero.damage_state = 60
                 hero.change_state(CharacterState.DAMAGED)
@@ -30,7 +28,7 @@ def handle_collision_with_traps_and_enemies(hero, trap_array, crabby_array):
                 crabby_rect = pygame.Rect(crabby.x + crabby.collision_tolerance, crabby.y,
                                           crabby.width - crabby.collision_tolerance, crabby.height)
             if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(
-                    crabby_rect) and not hero.is_dashing() and not hero.is_damaged():
+                    crabby_rect) and not hero.is_damaged():
                 hero.health -= crabby.attack_strength
                 hero.damage_state = 60
                 hero.change_state(CharacterState.DAMAGED)

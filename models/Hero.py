@@ -20,11 +20,6 @@ class Hero(Character):
         self.init_jumpstate = -16
         self.last_jump = 0
 
-        self.dash_state = -16
-        self.init_dash_state = -16
-        self.dash_speed = 20
-        self.last_dash = 0
-
         self.grounded = False
         self.next_y = 300
         self.next_x = 300
@@ -44,16 +39,6 @@ class Hero(Character):
         if self.damage_state > 0:
             return True
         return False
-
-    def is_dashing(self):
-        if self.dash_state > self.init_dash_state:
-            return True
-
-    def allowed_to_dash(self):
-        now_in_ms = pygame.time.get_ticks()
-        if (now_in_ms - self.last_dash) > 1000 and not self.is_dashing():
-            self.last_dash = now_in_ms
-            return True
 
     def is_jumping(self):
         if self.jump_state > self.init_jumpstate:

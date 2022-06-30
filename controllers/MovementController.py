@@ -26,7 +26,7 @@ def handle_movement(hero):
     if keys_pressed[pygame.K_d] and hero.allowed_to_dash():
         hero.dash_state = 0
 
-    if not keys_pressed[pygame.K_RIGHT] and not keys_pressed[pygame.K_LEFT] and not hero.is_dashing() and not hero.is_jumping():
+    if not keys_pressed[pygame.K_RIGHT] and not keys_pressed[pygame.K_LEFT] and not hero.is_jumping():
         hero.change_state(CharacterState.IDLE)
 
 

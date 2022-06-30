@@ -4,7 +4,7 @@ import pygame
 from controllers.CollisionController import handle_collision_with_environment, handle_collision_with_traps_and_enemies, \
     handle_collision_with_coin, reached_level_goal
 from controllers.LevelController import generate_random_level
-from controllers.MovementController import handle_movement, handle_jump, handle_dash
+from controllers.MovementController import handle_movement, handle_jump
 from models.Background import Background
 from models.CharacterState import CharacterState
 from models.Level import Level
@@ -37,9 +37,6 @@ def start(clock, screen, hero):
 
         # handle jump
         handle_jump(hero)
-
-        # handle dash
-        handle_dash(hero)
 
         # handle collision with environment
         handle_collision_with_environment(hero, level.tile_array)
