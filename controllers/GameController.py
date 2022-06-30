@@ -4,7 +4,7 @@ import pygame
 from controllers.CollisionController import handle_collision_with_environment, handle_collision_with_traps_and_enemies, \
     handle_collision_with_coin, reached_level_goal
 from controllers.LevelController import generate_random_level
-from controllers.MovementController import handle_movement, handle_jump
+from controllers.MovementController import handle_movement, handle_jump, move_crabby
 from models.Background import Background
 from models.CharacterState import CharacterState
 from models.Level import Level
@@ -47,28 +47,17 @@ def start(clock, screen, hero):
         # handle collision with coin
         handle_collision_with_coin(hero, level)
 
-        # update hero img
+        # update hero
         hero.img_clock = hero.img_clock + 1
         if (hero.img_clock / 10).is_integer():
             hero.img_index = (hero.img_index + 1) % len(hero.img_list)
         hero.img = hero.img_list[hero.img_index]
 
+        # update crabby
         for crabby in level.crabby_array:
-            if (crabby.attack_clock / 1000).is_integer():
-                crabby.change_state(CharacterState.ATTACK)
-                crabby.attack_clock = 0
+            move_crabby(crabby)
 
-            if crabby.attack_clock == 150 and crabby.state == CharacterState.ATTACK:
-                crabby.change_state(CharacterState.IDLE)
-
-            crabby.attack_clock = crabby.attack_clock + 1
-
-            crabby.img_clock = crabby.img_clock + 1
-
-            if (crabby.img_clock / 15).is_integer():
-                crabby.img_index = (crabby.img_index + 1) % len(crabby.img_list)
-            crabby.img = crabby.img_list[crabby.img_index]
-
+        # draw
         if hero.is_alive():
             bg.draw(screen)
             level.draw(hero, screen)

@@ -1,4 +1,5 @@
 import os
+import random
 
 import pygame
 
@@ -11,6 +12,15 @@ class Crabby(Enemy):
         super().__init__(x, y)
 
         self.attack_strength = 20
+
+        self.attack_time = random.randint(100, 500)
+        self.attack_clock = 0
+
+        self.movement_time = 50
+        self.movement_clock = 0
+
+        self.idle_time = random.randint(100, 500)
+        self.idle_clock = 0
 
         self.width = 72
         self.height = 32
@@ -57,6 +67,27 @@ class Crabby(Enemy):
                 (72 * 2, 32 * 2)),
             pygame.transform.scale(
                 pygame.image.load(os.path.join('sprites/enemies/crabby/attack', '04.png')).convert_alpha(),
+                (72 * 2, 32 * 2)),
+        ]
+
+        self.run_img_list = [
+            pygame.transform.scale(
+                pygame.image.load(os.path.join('sprites/enemies/crabby/run', '01.png')).convert_alpha(),
+                (72 * 2, 32 * 2)),
+            pygame.transform.scale(
+                pygame.image.load(os.path.join('sprites/enemies/crabby/run', '02.png')).convert_alpha(),
+                (72 * 2, 32 * 2)),
+            pygame.transform.scale(
+                pygame.image.load(os.path.join('sprites/enemies/crabby/run', '03.png')).convert_alpha(),
+                (72 * 2, 32 * 2)),
+            pygame.transform.scale(
+                pygame.image.load(os.path.join('sprites/enemies/crabby/run', '04.png')).convert_alpha(),
+                (72 * 2, 32 * 2)),
+            pygame.transform.scale(
+                pygame.image.load(os.path.join('sprites/enemies/crabby/run', '05.png')).convert_alpha(),
+                (72 * 2, 32 * 2)),
+            pygame.transform.scale(
+                pygame.image.load(os.path.join('sprites/enemies/crabby/run', '06.png')).convert_alpha(),
                 (72 * 2, 32 * 2)),
         ]
 

@@ -14,10 +14,3 @@ class Enemy(Character):
 
         self.attack_clock = 1
 
-        self.line_of_sight = 1
-
-        self.next_y = 300
-        self.next_x = 300
-
-        self.health = 100
-
