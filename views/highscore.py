@@ -1,9 +1,8 @@
-import os
 import sys
 import pygame
 
 from controllers.DatabaseController import get_highscore_list
-from controllers.HelperController import draw_text
+from controllers.HelperController import draw_text, draw_image
 from views import menu
 
 
@@ -25,12 +24,7 @@ def show(clock, screen):
         mx, my = pygame.mouse.get_pos()
 
         # load and render play button
-        img = pygame.image.load(os.path.join('sprites/buttons', 'menu.png'))
-        btn_menu = img.get_rect()
-        w, h = pygame.display.get_surface().get_size()
-        btn_menu.x = w / 2 - btn_menu.width / 2
-        btn_menu.y = h / 2 - btn_menu.height / 2
-        screen.blit(img, btn_menu)
+        btn_menu = draw_image(screen, 'sprites/menu/buttons', 'menu.png', 756, 750)
 
         if btn_menu.collidepoint((mx, my)):
             if click:

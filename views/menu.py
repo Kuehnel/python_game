@@ -1,9 +1,8 @@
-import os
-
 from controllers.GameController import start
 import pygame
 import sys
 
+from controllers.HelperController import draw_image
 from models.Hero import Hero
 from views import highscore
 
@@ -18,27 +17,16 @@ def show(clock, screen):
         # get mouse position
         mx, my = pygame.mouse.get_pos()
         w, h = pygame.display.get_surface().get_size()
+        button_position_x = 756
 
         # load and render play button
-        img = pygame.image.load(os.path.join('sprites/buttons', 'play.png'))
-        btn_play = img.get_rect()
-        btn_play.x = 100
-        btn_play.y = 100
-        screen.blit(img, btn_play)
+        btn_play = draw_image(screen, 'sprites/menu/buttons', 'play.png', button_position_x, 400)
 
         # load and render highscore button
-        img = pygame.image.load(os.path.join('sprites/buttons', 'play.png'))
-        btn_highscore = img.get_rect()
-        btn_highscore.x = 100
-        btn_highscore.y = 400
-        screen.blit(img, btn_highscore)
+        btn_highscore = draw_image(screen, 'sprites/menu/buttons', 'highscore.png', button_position_x, 550)
 
         # load and render quit button
-        img = pygame.image.load(os.path.join('sprites/buttons', 'quit.png'))
-        btn_quit = img.get_rect()
-        btn_quit.x = 100
-        btn_quit.y = 700
-        screen.blit(img, btn_quit)
+        btn_quit = draw_image(screen, 'sprites/menu/buttons', 'quit.png', button_position_x, 700)
 
         # event when button clicked
         if click:

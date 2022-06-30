@@ -21,7 +21,7 @@ def show(clock, screen, hero):
         mx, my = pygame.mouse.get_pos()
 
         # load and render play button
-        img = pygame.image.load(os.path.join('sprites/buttons', 'menu.png'))
+        img = pygame.image.load(os.path.join('sprites/menu/buttons', 'menu.png'))
         btn_menu = img.get_rect()
         w, h = pygame.display.get_surface().get_size()
         btn_menu.x = w / 2 - btn_menu.width / 2
