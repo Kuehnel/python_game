@@ -20,6 +20,8 @@ def generate_random_level(level):
     for i in range(3):
         random_num = random.randint(0, all_class_tiles_length - 1)
         level.merge_tile_maps(getattr(kit_collection, all_class_tiles[random_num]))
+        all_class_tiles.pop(random_num)
+        all_class_tiles_length = all_class_tiles_length - 1
 
     level.merge_tile_maps(kit_collection.end_kit_tile_map)
 
