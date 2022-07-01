@@ -6,6 +6,7 @@ from controllers.AnimationController import animate_scene
 from controllers.CollisionController import reached_level_goal, handle_collision
 from controllers.LevelController import generate_random_level
 from controllers.MovementController import handle_movement
+from controllers.SoundController import play_main_theme
 from models.Background import Background
 from models.Level import Level
 from views import gameover, menu
@@ -15,6 +16,8 @@ def start(clock, screen, hero):
     level = Level()
     bg = Background()
     bg.init_palmtree_array()
+
+    play_main_theme()
 
     freeze_time = 0
 

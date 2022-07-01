@@ -3,6 +3,7 @@ import pygame
 import sys
 
 from controllers.HelperController import load_and_draw_image
+from controllers.SoundController import play_main_theme
 from models.Background import Background
 from models.Hero import Hero
 from views import highscore
@@ -10,6 +11,8 @@ from views import highscore
 
 def show(clock, screen):
     click = False
+
+    play_main_theme()
 
     while True:
 

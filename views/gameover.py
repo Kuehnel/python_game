@@ -4,12 +4,15 @@ import pygame
 
 from controllers.DatabaseController import insert_highscore
 from controllers.HelperController import draw_text, load_and_draw_image
+from controllers.SoundController import game_over_theme
 from models.Background import Background
 from views import menu
 
 
 def show(clock, screen, hero):
     click = False
+
+    game_over_theme()
 
     insert_highscore(hero.highscore)
 
