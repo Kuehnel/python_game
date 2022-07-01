@@ -16,6 +16,8 @@ class Crabby(Enemy):
         self.attack_time = random.randint(100, 500)
         self.attack_clock = 0
 
+        self.collision_tolerance = 50
+
         self.movement_time = 50
         self.movement_clock = 0
 

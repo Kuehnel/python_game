@@ -43,10 +43,10 @@ def handle_collision_with_traps_and_enemies(hero, trap_array, crabby_array, seas
                 hero.change_state(CharacterState.DAMAGED)
 
         for crabby in crabby_array:
-            crabby_rect = pygame.Rect(crabby.x, crabby.y, crabby.width, crabby.height)
+            crabby_rect = pygame.Rect(crabby.x + crabby.collision_tolerance, crabby.y,
+                                      crabby.width - crabby.collision_tolerance, crabby.height)
             if crabby.state == CharacterState.ATTACK:
-                crabby_rect = pygame.Rect(crabby.x + crabby.collision_tolerance, crabby.y,
-                                          crabby.width - crabby.collision_tolerance, crabby.height)
+                crabby_rect = pygame.Rect(crabby.x, crabby.y, crabby.width, crabby.height)
             if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(
                     crabby_rect) and not hero.is_damaged():
                 hero.health -= crabby.attack_strength
