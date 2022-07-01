@@ -1,4 +1,5 @@
-from controllers.DatabaseController import create_db, insert_highscore, get_highscore_list
+from controllers.DatabaseController import create_db
+from models.Background import Background
 from views import menu
 import pygame
 
@@ -10,8 +11,10 @@ screen_height = 900
 screen = pygame.display.set_mode([screen_width, screen_height])
 clock = pygame.time.Clock()
 
+bg = Background()
+
 # create highscore db
 create_db()
 
 # show menu
-menu.show(clock, screen)
+menu.show(clock, screen, bg)

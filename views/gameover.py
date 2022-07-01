@@ -1,15 +1,12 @@
-import os
-import sys
 import pygame
 
 from controllers.DatabaseController import insert_highscore
-from controllers.HelperController import draw_text, load_and_draw_image
-from controllers.SoundController import game_over_theme
-from models.Background import Background
+from controllers.HelperController import draw_text, load_and_draw_image, handle_input
+from controllers.SoundController import game_over_theme, navigation_sound
 from views import menu
 
 
-def show(clock, screen, hero):
+def show(clock, screen, hero, bg):
     click = False
 
     game_over_theme()
@@ -18,7 +15,7 @@ def show(clock, screen, hero):
 
     while True:
 
-        Background().draw(screen)
+        bg.draw(screen)
 
         load_and_draw_image(screen, 'sprites/menu/boards', 'bg_board.png', 548, 40, 5.5)
         load_and_draw_image(screen, 'sprites/menu/boards', 'board.png', 580, 70, 5)
@@ -40,16 +37,10 @@ def show(clock, screen, hero):
 
         if btn_menu.collidepoint((mx, my)):
             if click:
-                menu.show(clock, screen)
+                navigation_sound()
+                menu.show(clock, screen, bg)
 
-        # handle mouse + keyboard input
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    click = True
+        click = handle_input()
 
         pygame.display.update()
         clock.tick(60)

@@ -31,7 +31,7 @@ def start(clock, screen, hero):
                 pygame.quit()
                 sys.exit()
             if pygame.key.get_pressed()[pygame.K_ESCAPE]:
-                menu.show(clock, screen)
+                menu.show(clock, screen, bg)
                 break
 
         if freeze_time == 0:
@@ -49,7 +49,7 @@ def start(clock, screen, hero):
             bg.draw(screen, hero)
             level.draw(hero, screen)
         else:
-            gameover.show(clock, screen, hero)
+            gameover.show(clock, screen, hero, bg)
             break
 
         if freeze_time == 0 and reached_level_goal(hero, level):

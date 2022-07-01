@@ -37,3 +37,7 @@ def jump_sound():
 
 def collect_coin_sound():
     play_music("sounds/sfx/collect_coin.mp3", 1)
+
+
+def navigation_sound():
+    play_music("sounds/sfx/navigation.mp3", 1)
