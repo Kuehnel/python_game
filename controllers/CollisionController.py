@@ -38,7 +38,7 @@ def handle_collision_with_traps_and_enemies(hero, trap_array, crabby_array, seas
             rect = enemy[0]
             if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(
                     rect) and not hero.is_damaged():
-                hero.health -= 220
+                hero.health -= 20
                 hero.damage_state = 60
                 hero.change_state(CharacterState.DAMAGED)
 

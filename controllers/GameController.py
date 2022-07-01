@@ -1,4 +1,5 @@
 import sys
+
 import pygame
 
 from controllers.AnimationController import animate_scene
@@ -7,13 +8,15 @@ from controllers.LevelController import generate_random_level
 from controllers.MovementController import handle_movement
 from models.Background import Background
 from models.Level import Level
-from views import gameover
+from views import gameover, menu
 
 
 def start(clock, screen, hero):
     level = Level()
     bg = Background()
     bg.init_palmtree_array()
+
+    freeze_time = 0
 
     # generate level using the tile map
     generate_random_level(level)
@@ -24,15 +27,19 @@ def start(clock, screen, hero):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if pygame.key.get_pressed()[pygame.K_ESCAPE]:
+                menu.show(clock, screen)
+                break
 
-        # handle hero movement
-        handle_movement(hero)
+        if freeze_time == 0:
+            # handle hero movement
+            handle_movement(hero)
 
-        # handle collision
-        handle_collision(hero, level)
+            # handle collision
+            handle_collision(hero, level)
 
-        # animate scene
-        animate_scene(hero, level.crabby_array, level.seashell_array)
+            # animate scene
+            animate_scene(hero, level.crabby_array, level.seashell_array)
 
         # draw
         if hero.is_alive():
@@ -42,10 +49,20 @@ def start(clock, screen, hero):
             gameover.show(clock, screen, hero)
             break
 
-        if reached_level_goal(hero, level):
-            hero.x = 300
-            hero.y = 300
-            start(clock, screen, hero)
+        if freeze_time == 0 and reached_level_goal(hero, level):
+            freeze_time = 100
+
+        if freeze_time > 0:
+            freeze_time = freeze_time - 1
+
+        if freeze_time == 1:
+            start_next_level(screen, clock, hero)
             break
 
         clock.tick(120)
+
+
+def start_next_level(screen, clock, hero):
+    hero.x, hero.next_x = 300, 300
+    hero.y, hero.next_y = 300, 300
+    start(clock, screen, hero)
