@@ -1,6 +1,7 @@
 import pygame
 
 from controllers.MovementController import set_indeed_moved_x
+from controllers.SoundController import damage_sound, collect_coin_sound
 from models.CharacterState import CharacterState
 
 
@@ -53,10 +54,14 @@ def handle_collision_with_traps_and_enemies(hero, trap_array, crabby_array, seas
                 hero.damage_state = 60
                 hero.change_state(CharacterState.DAMAGED)
 
+    if hero.damage_state == 60:
+        damage_sound()
+
 
 def handle_collision_with_coin(hero, generated_level):
     for rect in generated_level.coin_array:
         if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(rect):
+            collect_coin_sound()
             hero.highscore += 1
             generated_level.coin_array.remove(rect)
 

@@ -1,5 +1,6 @@
 import pygame
 
+from controllers.SoundController import jump_sound
 from models.CharacterState import CharacterState
 
 
@@ -22,6 +23,7 @@ def handle_key_press(hero):
     keys_pressed = pygame.key.get_pressed()
 
     if keys_pressed[pygame.K_SPACE] and hero.allowed_to_jump():
+        jump_sound()
         hero.jump_state = hero.init_jumpstate * -1
         hero.change_state(CharacterState.JUMP)
     if keys_pressed[pygame.K_DOWN]:
