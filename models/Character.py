@@ -33,7 +33,7 @@ class Character:
         self.attack_img_list = []
 
     def get_rect(self):
-        pygame.Rect(self.x, self.y, self.width, self.height)
+        return pygame.Rect(self.x, self.y, self.width, self.height)
 
     def change_state(self, new_state):
         if self.state != new_state:

@@ -3,6 +3,7 @@ import random
 
 import pygame
 
+from models.CharacterState import CharacterState
 from models.Enemy import Enemy
 
 
@@ -94,3 +95,10 @@ class Crabby(Enemy):
         ]
 
         self.img_list = self.idle_img_list
+
+    def get_rect(self):
+        crabby_rect = pygame.Rect(self.x + self.collision_tolerance, self.y,
+                                  self.width - self.collision_tolerance, self.height)
+        if self.state == CharacterState.ATTACK:
+            crabby_rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        return crabby_rect

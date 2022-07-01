@@ -24,8 +24,8 @@ class Seashell(Enemy):
         self.height = 38
 
         self.pearl_img = pygame.transform.scale(
-                pygame.image.load(os.path.join('sprites/enemies/seashell/pearl', '1.png')).convert_alpha(),
-                (32, 32))
+            pygame.image.load(os.path.join('sprites/enemies/seashell/pearl', '1.png')).convert_alpha(),
+            (32, 32))
 
         self.idle_img_list = [
             pygame.transform.scale(
@@ -54,3 +54,9 @@ class Seashell(Enemy):
         ]
 
         self.img_list = self.idle_img_list
+
+    def get_rect(self):
+        if self.bullet:
+            return pygame.Rect(self.bullet)
+        else:
+            return pygame.Rect(0, 0, 1, 1)
