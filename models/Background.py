@@ -15,11 +15,9 @@ class Background:
         self.palmtree_array = []
 
         self.bg_img = pygame.image.load(os.path.join('sprites/island/background', 'background.png')).convert_alpha()
-        self.big_clouds_img = load_image_scaled('sprites/island/background', 'big_clouds.png', 4.1).convert_alpha()
+        self.big_clouds_img = load_image_scaled('sprites/island/background', 'big_clouds.png', 4.1)
 
-        self.palmtree_img = pygame.transform.scale(
-            pygame.image.load(os.path.join('sprites/island/background/palmtree', '01.png')).convert_alpha(),
-            (64 * 5, 64 * 5))
+        self.palmtree_img = load_image_scaled('sprites/island/background/palmtree', '01.png', 5)
 
     def init_palmtree_array(self):
         for i in range(3):

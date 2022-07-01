@@ -24,16 +24,16 @@ class Level:
 
         self.goal_rect = None
 
-        self.lifebar_img = load_image_scaled('sprites/hero/hud', 'lifebar.png', 3).convert_alpha()
+        self.lifebar_img = load_image_scaled('sprites/hero/hud', 'lifebar.png', 3)
         self.platform_img = pygame.image.load(os.path.join('sprites/island', 'platform.png')).convert_alpha()
-        self.coin_img = pygame.image.load(os.path.join('sprites/collectables', 'coin.png')).convert_alpha()
+        self.coin_img = load_image_scaled('sprites/collectables', 'coin.png', 3)
         self.spikes_img = pygame.image.load(os.path.join('sprites/traps', 'spikes.png')).convert_alpha()
         self.floor_img = pygame.image.load(os.path.join('sprites/island', 'floor.png')).convert_alpha()
         self.block_img = pygame.image.load(os.path.join('sprites/island', 'block.png')).convert_alpha()
         self.wall_img = pygame.image.load(os.path.join('sprites/island', 'wall.png')).convert_alpha()
-        self.goal_img = pygame.image.load(os.path.join('sprites/island', 'goal.png')).convert_alpha()
+        self.goal_img = load_image_scaled('sprites/island', 'goal.png', 3)
 
-        self.ufo_img = load_image_scaled('sprites/island', 'ufo.png', 6).convert_alpha()
+        self.ufo_img = load_image_scaled('sprites/island', 'ufo.png', 6)
 
     def merge_tile_maps(self, next_tile_map):
         self.tile_map = [a + b for a, b in zip(self.tile_map, next_tile_map)]
@@ -57,11 +57,8 @@ class Level:
                 pygame.draw.rect(screen, (255, 255, 255), tmp_rect)
 
         for trap in self.trap_array:
-            tmp_rect = trap[0]
-            enemy_type = trap[1]
-            tmp_rect.x = tmp_rect.x - hero.indeed_moved_x
-            if enemy_type == 2:
-                screen.blit(self.spikes_img, (tmp_rect.x, tmp_rect.y))
+            trap.x = trap.x - hero.indeed_moved_x
+            screen.blit(trap.img, (trap.x, trap.y))
 
         for crabby in self.crabby_array:
             crabby.x = crabby.x - hero.indeed_moved_x

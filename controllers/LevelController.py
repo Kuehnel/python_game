@@ -5,6 +5,7 @@ import pygame
 from kitbashing.KitCollection import KitCollection
 from models.Crabby import Crabby
 from models.Seashell import Seashell
+from models.Trap import Trap
 
 
 def generate_random_level(level):
@@ -28,13 +29,6 @@ def generate_random_level(level):
 
     tile_map_to_rect_array(level)
 
-    level.coin_img = pygame.transform.scale(level.coin_img,
-                                            (level.coin_img.get_width() * 3, level.coin_img.get_height() * 3))
-    level.spikes_img = pygame.transform.scale(level.spikes_img,
-                                              (level.spikes_img.get_width() * 2, level.spikes_img.get_height() * 2))
-    level.goal_img = pygame.transform.scale(level.goal_img,
-                                            (level.goal_img.get_width() * 3, level.goal_img.get_height() * 3))
-
 
 def tile_map_to_rect_array(self):
     self.tile_array.append(
@@ -50,8 +44,7 @@ def tile_map_to_rect_array(self):
             if column == 2:
                 # add enemy
                 self.trap_array.append(
-                    [pygame.Rect(self.pointer_x, self.pointer_y + self.tile_size_small, self.tile_size_small,
-                                 self.tile_size_small), 2])
+                    Trap(self.pointer_x, self.pointer_y + self.tile_size_small))
             if column == 3:
                 # add wall
                 self.tile_array.append(

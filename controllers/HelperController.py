@@ -21,4 +21,4 @@ def load_and_draw_image(screen, folder, file_name, x, y, factor):
 
 def load_image_scaled(folder, file_name, factor):
     img = pygame.image.load(os.path.join(folder, file_name))
-    return pygame.transform.scale(img, (img.get_width() * factor, img.get_height() * factor))
+    return pygame.transform.scale(img, (img.get_width() * factor, img.get_height() * factor)).convert_alpha()

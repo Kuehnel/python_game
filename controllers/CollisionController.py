@@ -22,6 +22,8 @@ def handle_collision(hero, level):
 
 
 def handle_collision_with_traps_and_enemies(hero, trap_array, crabby_array, seashell_array):
+    hero_rect = pygame.Rect(hero.x, hero.y, hero.width, hero.height)
+
     if hero.is_damaged():
         hero.damage_state = hero.damage_state - 1
         hero.change_state(CharacterState.DAMAGED)
@@ -35,10 +37,11 @@ def handle_collision_with_traps_and_enemies(hero, trap_array, crabby_array, seas
                     hero.damage_state = 60
                     hero.change_state(CharacterState.DAMAGED)
 
-        for enemy in trap_array:
-            rect = enemy[0]
+        for trap in trap_array:
+            trap_rect = pygame.Rect(trap.x, trap.y,
+                                    trap.width, trap.height)
             if pygame.Rect(hero.x, hero.y, hero.width, hero.height).colliderect(
-                    rect) and not hero.is_damaged():
+                    trap_rect) and not hero.is_damaged():
                 hero.health -= 20
                 hero.damage_state = 60
                 hero.change_state(CharacterState.DAMAGED)
