@@ -9,6 +9,17 @@ def reached_level_goal(hero, level):
         return True
 
 
+def handle_collision(hero, level):
+    # handle collision with environment
+    handle_collision_with_environment(hero, level.tile_array)
+
+    # handle collision with enemy
+    handle_collision_with_traps_and_enemies(hero, level.trap_array, level.crabby_array, level.seashell_array)
+
+    # handle collision with coin
+    handle_collision_with_coin(hero, level)
+
+
 def handle_collision_with_traps_and_enemies(hero, trap_array, crabby_array, seashell_array):
     if hero.is_damaged():
         hero.damage_state = hero.damage_state - 1
