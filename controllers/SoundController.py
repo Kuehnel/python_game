@@ -41,3 +41,7 @@ def collect_coin_sound():
 
 def navigation_sound():
     play_music("sounds/sfx/navigation.mp3", 1)
+
+
+def goal_sound():
+    play_music("sounds/sfx/goal.mp3", 1)

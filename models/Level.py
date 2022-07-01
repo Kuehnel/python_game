@@ -38,7 +38,7 @@ class Level:
     def merge_tile_maps(self, next_tile_map):
         self.tile_map = [a + b for a, b in zip(self.tile_map, next_tile_map)]
 
-    def draw(self, hero, screen):
+    def draw(self, hero, screen, freeze):
         for tile in self.tile_array:
             tmp_rect = tile[0]
             tile_type = tile[1]
@@ -92,6 +92,9 @@ class Level:
 
         # draw highscore
         draw_text(screen, f"HIGHSCORE: {hero.highscore}", 1400, 50, 20)
+
+        if freeze:
+            draw_text(screen, "level accomplished!", 500, 400, 50)
 
         # update display
         pygame.display.update()

@@ -5,11 +5,6 @@ from controllers.SoundController import damage_sound, collect_coin_sound
 from models.CharacterState import CharacterState
 
 
-def reached_level_goal(hero, level):
-    if hero.get_rect().colliderect(level.goal_rect):
-        return True
-
-
 def handle_collision(hero, level):
     # handle collision with environment
     handle_collision_with_environment(hero, level.tile_array)

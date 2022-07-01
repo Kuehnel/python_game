@@ -3,11 +3,12 @@ import sys
 import pygame
 
 from controllers.AnimationController import animate_scene
-from controllers.CollisionController import reached_level_goal, handle_collision
+from controllers.CollisionController import handle_collision
 from controllers.LevelController import generate_random_level
 from controllers.MovementController import handle_movement
-from controllers.SoundController import play_main_theme
+from controllers.SoundController import play_main_theme, goal_sound
 from models.Background import Background
+from models.CharacterState import CharacterState
 from models.Level import Level
 from views import gameover, menu
 
@@ -47,13 +48,16 @@ def start(clock, screen, hero):
         # draw
         if hero.is_alive():
             bg.draw(screen, hero)
-            level.draw(hero, screen)
+            level.draw(hero, screen, (freeze_time > 0))
         else:
             gameover.show(clock, screen, hero, bg)
             break
 
-        if freeze_time == 0 and reached_level_goal(hero, level):
+        if freeze_time == 0 and hero.x > level.goal_rect.x + 20:
             freeze_time = 100
+            hero.indeed_moved_x = 0
+            hero.change_state(CharacterState.IDLE)
+            goal_sound()
 
         if freeze_time > 0:
             freeze_time = freeze_time - 1
