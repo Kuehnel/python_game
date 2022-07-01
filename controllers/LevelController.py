@@ -37,6 +37,10 @@ def generate_random_level(level):
 
 
 def tile_map_to_rect_array(self):
+    self.tile_array.append(
+        [pygame.Rect(20, 550, 220, 240), 99])
+    self.tile_array.append(
+        [pygame.Rect(-94, 772, self.tile_size, self.tile_size), 1])
     for row in self.tile_map:
         for column in row:
             if column == 1:

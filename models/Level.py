@@ -3,7 +3,6 @@ import os
 import pygame
 
 from controllers.HelperController import draw_text, load_image_scaled
-from models.CharacterState import CharacterState
 
 
 class Level:
@@ -34,11 +33,12 @@ class Level:
         self.wall_img = pygame.image.load(os.path.join('sprites/island', 'wall.png')).convert_alpha()
         self.goal_img = pygame.image.load(os.path.join('sprites/island', 'goal.png')).convert_alpha()
 
+        self.ufo_img = load_image_scaled('sprites/island', 'ufo.png', 6).convert_alpha()
+
     def merge_tile_maps(self, next_tile_map):
         self.tile_map = [a + b for a, b in zip(self.tile_map, next_tile_map)]
 
     def draw(self, hero, screen):
-
         for tile in self.tile_array:
             tmp_rect = tile[0]
             tile_type = tile[1]
@@ -51,6 +51,8 @@ class Level:
                 screen.blit(self.platform_img, (tmp_rect.x, tmp_rect.y))
             elif tile_type == 9:
                 screen.blit(self.block_img, (tmp_rect.x, tmp_rect.y))
+            elif tile_type == 99:
+                screen.blit(self.ufo_img, (tmp_rect.x, tmp_rect.y))
             else:
                 pygame.draw.rect(screen, (255, 255, 255), tmp_rect)
 
