@@ -25,8 +25,8 @@ class Crabby(Enemy):
         self.idle_time = random.randint(100, 500)
         self.idle_clock = 0
 
-        self.width = 72
-        self.height = 32
+        self.width = 72 * 2
+        self.height = 32 * 2
 
         self.idle_img_list = [
             pygame.transform.scale(
