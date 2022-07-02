@@ -32,8 +32,7 @@ class Level:
         self.block_img = pygame.image.load(os.path.join('sprites/island', 'block.png')).convert_alpha()
         self.wall_img = pygame.image.load(os.path.join('sprites/island', 'wall.png')).convert_alpha()
         self.goal_img = load_image_scaled('sprites/island', 'goal.png', 3)
-
-        self.ufo_img = load_image_scaled('sprites/island', 'ufo.png', 6)
+        self.ship_img = load_image_scaled('sprites/island', 'ship.png', 12)
 
     def merge_tile_maps(self, next_tile_map):
         self.tile_map = [a + b for a, b in zip(self.tile_map, next_tile_map)]
@@ -52,7 +51,7 @@ class Level:
             elif tile_type == 9:
                 screen.blit(self.block_img, (tmp_rect.x, tmp_rect.y))
             elif tile_type == 99:
-                screen.blit(self.ufo_img, (tmp_rect.x, tmp_rect.y))
+                screen.blit(self.ship_img, (tmp_rect.x, tmp_rect.y))
             else:
                 pygame.draw.rect(screen, (255, 255, 255), tmp_rect)
 
@@ -94,7 +93,7 @@ class Level:
         draw_text(screen, f"HIGHSCORE: {hero.highscore}", 1400, 50, 20)
 
         if freeze:
-            draw_text(screen, "level accomplished!", 500, 400, 50)
+            draw_text(screen, "level accomplished!", 500, 200, 50)
 
         # update display
         pygame.display.update()

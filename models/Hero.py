@@ -10,8 +10,8 @@ class Hero(Character):
 
     def __init__(self):
         super().__init__()
-        self.x = 300
-        self.y = 300
+        self.x = 600
+        self.y = 700
         self.width = 64
         self.height = 64
         self.collision_tolerance = 9
