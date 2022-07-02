@@ -10,7 +10,7 @@ class Hero(Character):
 
     def __init__(self):
         super().__init__()
-        self.x = 600
+        self.x = 200
         self.y = 700
         self.width = 64
         self.height = 64

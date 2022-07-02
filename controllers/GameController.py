@@ -4,7 +4,7 @@ import pygame
 
 from controllers.AnimationController import animate_scene
 from controllers.CollisionController import handle_collision
-from controllers.LevelController import generate_random_level
+from controllers.LevelController import generate_random_level, draw
 from controllers.MovementController import handle_movement
 from controllers.SoundController import play_main_theme, goal_sound
 from models.Background import Background
@@ -48,7 +48,7 @@ def start(clock, screen, hero):
         # draw
         if hero.is_alive():
             bg.draw(screen, hero)
-            level.draw(hero, screen, (freeze_time > 0))
+            draw(level, hero, screen, (freeze_time > 0))
         else:
             gameover.show(clock, screen, hero, bg)
             break
