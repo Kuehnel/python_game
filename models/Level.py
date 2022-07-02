@@ -52,8 +52,6 @@ class Level:
                 screen.blit(self.block_img, (tmp_rect.x, tmp_rect.y))
             elif tile_type == 99:
                 screen.blit(self.ship_img, (tmp_rect.x, tmp_rect.y))
-            else:
-                pygame.draw.rect(screen, (255, 255, 255), tmp_rect)
 
         for trap in self.trap_array:
             trap.x = trap.x - hero.indeed_moved_x

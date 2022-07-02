@@ -16,8 +16,8 @@ class Background:
 
         self.bg_img = pygame.image.load(os.path.join('sprites/island/background', 'background.png')).convert_alpha()
         self.big_clouds_img = load_image_scaled('sprites/island/background', 'big_clouds.png', 4.1)
-
-        self.palmtree_img = load_image_scaled('sprites/island/background/palmtree', '01.png', 5)
+        self.palmtree_img = load_image_scaled('sprites/island/background', 'palmtree.png', 5)
+        self.water_reflection_img = load_image_scaled('sprites/island/background', 'water_reflection.png', 5)
 
     def init_palmtree_array(self):
         for i in range(3):
@@ -27,6 +27,8 @@ class Background:
     def draw(self, screen, hero=None):
         screen.blit(self.bg_img, (0, 0))
         screen.blit(self.big_clouds_img, (0, 200))
+        screen.blit(self.water_reflection_img, (0, 650))
+        screen.blit(self.water_reflection_img, (900, 700))
 
         if hero:
             for palmtree in self.palmtree_array:
