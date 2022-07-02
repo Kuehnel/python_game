@@ -38,7 +38,7 @@ def handle_collision_with_coin(hero, generated_level):
     for rect in generated_level.coin_array:
         if hero.get_rect().colliderect(rect):
             collect_coin_sound()
-            hero.highscore += 1
+            hero.highscore += generated_level.level_number
             generated_level.coin_array.remove(rect)
 
 

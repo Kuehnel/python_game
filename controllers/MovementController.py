@@ -52,11 +52,3 @@ def handle_jump(hero):
         hero.jump_state -= 1
         hero.grounded = False
 
-
-def handle_dash(hero):
-    if hero.dash_state > hero.init_dash_state and not hero.is_jumping():
-        if hero.line_of_sight == 1:
-            hero.next_x = hero.x + hero.dash_speed
-        if hero.line_of_sight == -1:
-            hero.next_x = hero.x - hero.dash_speed
-        hero.dash_state -= 1

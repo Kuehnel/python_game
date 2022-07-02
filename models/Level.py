@@ -7,7 +7,7 @@ from controllers.HelperController import load_image_scaled
 
 class Level:
 
-    def __init__(self):
+    def __init__(self, level_number):
         self.pointer_x = 0
         self.pointer_y = 100
 
@@ -21,6 +21,8 @@ class Level:
         self.crabby_array = []
         self.seashell_array = []
         self.coin_array = []
+
+        self.level_number = 1 if not level_number else level_number
 
         self.goal_rect = None
 

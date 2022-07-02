@@ -13,8 +13,8 @@ from models.Level import Level
 from views import gameover, menu
 
 
-def start(clock, screen, hero):
-    level = Level()
+def start(clock, screen, hero, level_number):
+    level = Level(level_number)
     bg = Background()
     bg.init_palmtree_array()
 
@@ -48,7 +48,7 @@ def start(clock, screen, hero):
         # draw
         if hero.is_alive():
             bg.draw(screen, hero)
-            draw(level, hero, screen, (freeze_time > 0))
+            draw(level, hero, screen, (freeze_time > 0), level_number)
         else:
             gameover.show(clock, screen, hero, bg)
             break
@@ -63,13 +63,14 @@ def start(clock, screen, hero):
             freeze_time = freeze_time - 1
 
         if freeze_time == 1:
-            start_next_level(screen, clock, hero)
+            level_number += 1
+            start_next_level(screen, clock, hero, level_number)
             break
 
         clock.tick(120)
 
 
-def start_next_level(screen, clock, hero):
+def start_next_level(screen, clock, hero, level_number):
     hero.x, hero.next_x = 300, 300
     hero.y, hero.next_y = 300, 300
-    start(clock, screen, hero)
+    start(clock, screen, hero, level_number)

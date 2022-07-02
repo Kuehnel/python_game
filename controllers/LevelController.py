@@ -9,7 +9,7 @@ from models.Seashell import Seashell
 from models.Trap import Trap
 
 
-def draw(level, hero, screen, freeze):
+def draw(level, hero, screen, freeze, level_number):
     for tile in level.tile_array:
         tmp_rect = tile[0]
         tile_type = tile[1]
@@ -61,6 +61,9 @@ def draw(level, hero, screen, freeze):
 
     # draw highscore
     draw_text(screen, f"HIGHSCORE: {hero.highscore}", 1400, 50, 20)
+
+    # draw level_number
+    draw_text(screen, f"Level: {level_number}", 1000, 50, 20)
 
     if freeze:
         draw_text(screen, "level accomplished!", 500, 200, 50)
@@ -119,7 +122,8 @@ def tile_map_to_rect_array(level):
             if column == 6:
                 # add coin
                 level.coin_array.append(
-                    pygame.Rect(level.pointer_x + level.tile_size_small - 8, level.pointer_y + level.tile_size_small, level.tile_size_small, level.tile_size_small))
+                    pygame.Rect(level.pointer_x + level.tile_size_small - 8, level.pointer_y + level.tile_size_small,
+                                level.tile_size_small, level.tile_size_small))
             if column == 7:
                 # add platform
                 level.tile_array.append(
@@ -127,7 +131,7 @@ def tile_map_to_rect_array(level):
             if column == 8:
                 # add goal
                 level.goal_rect = pygame.Rect(level.pointer_x - level.tile_size, level.pointer_y,
-                                             level.tile_size_small, level.tile_size)
+                                              level.tile_size_small, level.tile_size)
             if column == 9:
                 # add block
                 level.tile_array.append(

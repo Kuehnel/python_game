@@ -31,7 +31,7 @@ def show(clock, screen, bg):
         if click:
             navigation_sound()
             if btn_play.collidepoint((mx, my)):
-                start(clock, screen, Hero())
+                start(clock, screen, Hero(), 1)
             if btn_highscore.collidepoint((mx, my)):
                 highscore.show(clock, screen, bg)
             if btn_quit.collidepoint((mx, my)):

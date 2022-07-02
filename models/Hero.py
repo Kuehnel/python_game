@@ -11,7 +11,7 @@ class Hero(Character):
     def __init__(self):
         super().__init__()
         self.x = 200
-        self.y = 700
+        self.y = 300
         self.width = 64
         self.height = 64
         self.collision_tolerance = 9
@@ -22,7 +22,7 @@ class Hero(Character):
 
         self.grounded = False
         self.next_y = 300
-        self.next_x = 300
+        self.next_x = 200
         self.indeed_moved_x = 0
 
         self.health = 225

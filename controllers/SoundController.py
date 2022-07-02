@@ -16,7 +16,6 @@ def play_music(file_path, channel_id):
 
 
 # MUSIC
-
 def play_main_theme():
     play_music("sounds/music/main_theme.mp3", 0)
 
@@ -26,7 +25,6 @@ def game_over_theme():
 
 
 # SFX
-
 def damage_sound():
     play_music("sounds/sfx/damage.mp3", 1)
 
