@@ -9,16 +9,15 @@ from views import menu
 # show highscores
 def show(clock, screen, bg):
     click = False
+    image_dictionary = {}
 
     while True:
 
         bg.draw(screen)
 
-        load_and_draw_image(screen, 'sprites/menu/boards', 'bg_board.png', 548, 40, 5.5)
-
-        load_and_draw_image(screen, 'sprites/menu/boards', 'board.png', 580, 70, 5)
-
-        load_and_draw_image(screen, 'sprites/menu/banner', 'highscore_banner.png', 548, 0, 5.5)
+        load_and_draw_image(screen, 'sprites/menu/boards', 'bg_board.png', 548, 40, 5.5, image_dictionary)
+        load_and_draw_image(screen, 'sprites/menu/boards', 'board.png', 580, 70, 5, image_dictionary)
+        load_and_draw_image(screen, 'sprites/menu/banner', 'highscore_banner.png', 548, 0, 5.5, image_dictionary)
 
         data = get_highscore_list()
 
@@ -29,7 +28,7 @@ def show(clock, screen, bg):
         mx, my = pygame.mouse.get_pos()
 
         # load and render menu button
-        btn_menu = load_and_draw_image(screen, 'sprites/menu/buttons', 'menu.png', 756, 750, 3)
+        btn_menu = load_and_draw_image(screen, 'sprites/menu/buttons', 'menu.png', 756, 750, 3, image_dictionary)
 
         if btn_menu.collidepoint((mx, my)):
             if click:

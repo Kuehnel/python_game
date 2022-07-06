@@ -18,9 +18,13 @@ def draw_image(screen, img, x, y):
     return img_rect
 
 
-def load_and_draw_image(screen, folder, file_name, x, y, factor):
-    img = pygame.image.load(os.path.join(folder, file_name))
-    img = pygame.transform.scale(img, (img.get_width() * factor, img.get_height() * factor))
+def load_and_draw_image(screen, folder, file_name, x, y, factor, image_dictionary):
+    if file_name in image_dictionary:
+        img = image_dictionary[file_name]
+    else:
+        img = pygame.image.load(os.path.join(folder, file_name))
+        img = pygame.transform.scale(img, (img.get_width() * factor, img.get_height() * factor))
+        image_dictionary[file_name] = img
     img_rect = img.get_rect()
     img_rect.x = x
     img_rect.y = y

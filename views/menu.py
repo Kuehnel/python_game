@@ -11,6 +11,7 @@ from views import highscore
 # show menu
 def show(clock, screen, bg):
     click = False
+    image_dictionary = {}
 
     play_main_theme()
 
@@ -23,10 +24,10 @@ def show(clock, screen, bg):
         button_position_x = 756
 
         # load and render images
-        load_and_draw_image(screen, 'sprites/menu/banner', 'title_banner.png', 650, 40, 4)
-        btn_play = load_and_draw_image(screen, 'sprites/menu/buttons', 'play.png', button_position_x, 400, 3)
-        btn_highscore = load_and_draw_image(screen, 'sprites/menu/buttons', 'highscore.png', button_position_x, 550, 3)
-        btn_quit = load_and_draw_image(screen, 'sprites/menu/buttons', 'quit.png', button_position_x, 700, 3)
+        load_and_draw_image(screen, 'sprites/menu/banner', 'title_banner.png', 650, 40, 4, image_dictionary)
+        btn_play = load_and_draw_image(screen, 'sprites/menu/buttons', 'play.png', button_position_x, 400, 3, image_dictionary)
+        btn_highscore = load_and_draw_image(screen, 'sprites/menu/buttons', 'highscore.png', button_position_x, 550, 3, image_dictionary)
+        btn_quit = load_and_draw_image(screen, 'sprites/menu/buttons', 'quit.png', button_position_x, 700, 3, image_dictionary)
 
         # event when button clicked
         if click:
