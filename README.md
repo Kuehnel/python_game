@@ -3,6 +3,9 @@
 ## Projektbeschreibung
 Das Spiel wurde im Rahmen des Moduls Objektorientierte Skriptsprachen entwickelt. Pinky vs. Pirates ist eine Hommage an klassische Plattformer der späten 80er Jahre.
 
+## Steuerung
+Bewegung mit den Pfeiltasten; Springen mit Space
+
 ## Technologien
 Python, PyGame, SQLite3
 
