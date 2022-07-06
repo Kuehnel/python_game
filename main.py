@@ -11,6 +11,7 @@ screen_height = 900
 screen = pygame.display.set_mode([screen_width, screen_height])
 clock = pygame.time.Clock()
 
+# create background
 bg = Background()
 
 # create highscore db

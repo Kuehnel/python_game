@@ -1,6 +1,7 @@
 from models.Character import Character
 
 
+# class that holds an character and represents an enemy
 class Enemy(Character):
 
     def __init__(self, x, y):

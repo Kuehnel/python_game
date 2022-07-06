@@ -2,6 +2,7 @@ from controllers.HelperController import load_image_scaled
 from models.Enemy import Enemy
 
 
+# class that represents trap
 class Trap(Enemy):
 
     def __init__(self, x, y):

@@ -3,6 +3,7 @@ import pygame
 from models.CharacterState import CharacterState
 
 
+# class that represents a character
 class Character:
 
     def __init__(self):

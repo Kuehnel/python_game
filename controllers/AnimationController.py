@@ -3,6 +3,7 @@ import pygame
 from models.CharacterState import CharacterState
 
 
+# animate hero and enemies
 def animate_scene(hero, crabby_array, seashell_array):
     # update hero
     animate_hero(hero)

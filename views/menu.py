@@ -8,6 +8,7 @@ from models.Hero import Hero
 from views import highscore
 
 
+# show menu
 def show(clock, screen, bg):
     click = False
 

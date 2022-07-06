@@ -10,14 +10,22 @@ def draw_text(screen, text, x, y, size):
     screen.blit(label, (x, y))
 
 
+def draw_image(screen, img, x, y):
+    img_rect = img.get_rect()
+    img_rect.x = x
+    img_rect.y = y
+    screen.blit(img, img_rect)
+    return img_rect
+
+
 def load_and_draw_image(screen, folder, file_name, x, y, factor):
     img = pygame.image.load(os.path.join(folder, file_name))
     img = pygame.transform.scale(img, (img.get_width() * factor, img.get_height() * factor))
-    btn_play = img.get_rect()
-    btn_play.x = x
-    btn_play.y = y
-    screen.blit(img, btn_play)
-    return btn_play
+    img_rect = img.get_rect()
+    img_rect.x = x
+    img_rect.y = y
+    screen.blit(img, img_rect)
+    return img_rect
 
 
 def load_image_scaled(folder, file_name, factor):

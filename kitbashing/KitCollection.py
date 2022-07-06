@@ -1,3 +1,4 @@
+# class that holds kits for level-building
 class KitCollection:
     # 0 = empty
     # 1 = floor

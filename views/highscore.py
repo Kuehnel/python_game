@@ -6,6 +6,7 @@ from controllers.SoundController import navigation_sound
 from views import menu
 
 
+# show highscores
 def show(clock, screen, bg):
     click = False
 

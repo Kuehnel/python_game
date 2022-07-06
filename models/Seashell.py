@@ -5,6 +5,7 @@ import pygame
 from models.Enemy import Enemy
 
 
+# class that represents seashell
 class Seashell(Enemy):
 
     def __init__(self, x, y):

@@ -7,6 +7,7 @@ from models.CharacterState import CharacterState
 from models.Enemy import Enemy
 
 
+# class that represents crabby
 class Crabby(Enemy):
 
     def __init__(self, x, y):

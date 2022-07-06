@@ -13,6 +13,7 @@ from models.Level import Level
 from views import gameover, menu
 
 
+# start the game
 def start(clock, screen, hero, level_number):
     level = Level(level_number)
     bg = Background()
@@ -70,6 +71,7 @@ def start(clock, screen, hero, level_number):
         clock.tick(120)
 
 
+# set hero and start next level
 def start_next_level(screen, clock, hero, level_number):
     hero.x, hero.next_x = 300, 300
     hero.y, hero.next_y = 300, 300

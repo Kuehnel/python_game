@@ -5,6 +5,7 @@ import pygame
 from controllers.HelperController import load_image_scaled
 
 
+# class that represents the level
 class Level:
 
     def __init__(self, level_number):
@@ -36,6 +37,6 @@ class Level:
         self.goal_img = load_image_scaled('sprites/island', 'goal.png', 3)
         self.ship_img = load_image_scaled('sprites/island', 'ship.png', 12)
 
+    # merge the rows of the level tile map with the rows of another tile map (both have to have the same length)
     def merge_tile_maps(self, next_tile_map):
         self.tile_map = [a + b for a, b in zip(self.tile_map, next_tile_map)]
-

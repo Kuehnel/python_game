@@ -1,6 +1,7 @@
 import pygame
 
 
+# class that represents spritesheet
 class Spritesheet:
 
     def __init__(self, image):

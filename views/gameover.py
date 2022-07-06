@@ -1,11 +1,12 @@
 import pygame
 
 from controllers.DatabaseController import insert_highscore
-from controllers.HelperController import draw_text, load_and_draw_image, handle_input
+from controllers.HelperController import draw_text, load_and_draw_image, handle_input, load_image_scaled, draw_image
 from controllers.SoundController import game_over_theme, navigation_sound
 from views import menu
 
 
+# show game over
 def show(clock, screen, hero, bg):
     click = False
 

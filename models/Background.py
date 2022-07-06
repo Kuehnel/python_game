@@ -6,6 +6,7 @@ import pygame
 from controllers.HelperController import load_image_scaled
 
 
+# class that represents background
 class Background:
 
     def __init__(self):

@@ -1,6 +1,7 @@
 from enum import Enum
 
 
+# class that represents character state
 class CharacterState(Enum):
     IDLE = 1
     RUN = 2

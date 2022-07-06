@@ -6,6 +6,7 @@ from models.Character import Character
 from models.Spritesheet import Spritesheet
 
 
+# class that represents hero
 class Hero(Character):
 
     def __init__(self):
